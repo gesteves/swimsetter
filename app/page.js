@@ -22,12 +22,18 @@ export default function Home() {
 
   const generateWorkoutSummary = () => {
     const grouped = {};
+    let hasNonZeroSets = false;
+    
     sets.forEach(s => {
+      if (s.minutes === 0 && s.seconds === 0) return;
+      hasNonZeroSets = true;
       const pace = `${Math.floor(s.pace / 60)}:${String(s.pace % 60).padStart(2, "0")}/100m`;
       const duration = `${s.minutes}:${String(s.seconds).padStart(2, "0")}`;
       const label = `${duration} @ ${pace}`;
       grouped[label] = (grouped[label] || 0) + 1;
     });
+
+    if (!hasNonZeroSets) return "";
 
     const lines = Object.entries(grouped).map(([label, count]) => `${count}×${label}`);
     lines.push("");
@@ -179,21 +185,23 @@ export default function Home() {
                 </tbody>
               </table>
             </div>
-            <div className="overflow-hidden rounded-md bg-white px-6 py-4 shadow-sm">
-              <p className="px-3 py-3.5 text-sm font-semibold text-gray-900">Workout Summary</p>
-              <pre className="px-3 py-3.5 text-sm text-gray-600 font-mono whitespace-pre border-t border-b border-gray-300">
-                {generateWorkoutSummary()}
-              </pre>
-              <div className="text-center">
-                <button
-                  className="px-3 py-4 text-sm transition-colors text-blue-600 hover:text-blue-500"
-                  onClick={copyToClipboard}
-                >
-                  <FontAwesomeIcon icon={copied ? faClipboardCheck : faClipboard} className="mr-1" />
-                  {copied ? "Copied to clipboard!" : "Copy to clipboard"}
-                </button>
+            {generateWorkoutSummary() && (
+              <div className="overflow-hidden rounded-md bg-white px-6 py-4 shadow-sm">
+                <p className="px-3 py-3.5 text-sm font-semibold text-gray-900">Workout Summary</p>
+                <pre className="px-3 py-3.5 text-sm text-gray-600 font-mono whitespace-pre border-t border-b border-gray-300">
+                  {generateWorkoutSummary()}
+                </pre>
+                <div className="text-center">
+                  <button
+                    className="px-3 py-4 text-sm transition-colors text-blue-600 hover:text-blue-500"
+                    onClick={copyToClipboard}
+                  >
+                    <FontAwesomeIcon icon={copied ? faClipboardCheck : faClipboard} className="mr-1" />
+                    {copied ? "Copied to clipboard!" : "Copy to clipboard"}
+                  </button>
+                </div>
               </div>
-            </div>
+            )}
           </>
         )}
         <div ref={buttonCardRef} className="fixed bottom-0 left-0 right-0 overflow-hidden bg-white px-6 py-4 shadow-sm">
