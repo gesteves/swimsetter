@@ -90,7 +90,7 @@ export default function Home() {
 
   return (
     <main 
-      className="min-h-[100dvh] min-h-[100vh] p-4 text-lg flex justify-center bg-blue-50"
+      className="min-h-[100dvh] p-4 text-lg flex justify-center bg-blue-50"
       style={{ paddingBottom: `${bottomPadding}px` }}
     >
       <div className="w-full max-w-screen-lg space-y-3">
