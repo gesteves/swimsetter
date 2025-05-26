@@ -18,8 +18,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${geistSans.className} min-h-[100dvh] max-w-full`}>
-      <body className="min-h-[100dvh] max-w-full">
+    <html lang="en" className={geistSans.className}>
+      <body>
         {children}
       </body>
     </html>
