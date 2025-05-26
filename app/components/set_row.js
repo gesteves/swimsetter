@@ -53,7 +53,7 @@ const SetRow = forwardRef(({ index, set, onChange, onRemove }, ref) => {
             </div>
           </div>
           <div className="grid grid-cols-1 hidden sm:block">@</div>
-          <div className="grid grid-cols-1">
+          <div className="grid grid-cols-1 mt-2 sm:mt-0">
             <select
               value={set.pace}
               onChange={(e) => handleChange("pace", e.target.value)}
