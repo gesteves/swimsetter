@@ -94,6 +94,11 @@ export default function Home() {
       style={{ paddingBottom: `${bottomPadding}px` }}
     >
       <div className="w-full max-w-screen-lg space-y-3">
+        {sets.length === 0 && (
+          <div className="overflow-hidden rounded-md bg-white px-6 py-4 shadow-sm">
+            <p className="text-gray-600 text-center">Hello, please add a set to get started.</p>
+          </div>
+        )}
         {sets.length > 0 && (
           <>
             <div className="overflow-hidden rounded-md bg-white px-6 py-4 shadow-sm">
