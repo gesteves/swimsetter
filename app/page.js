@@ -157,15 +157,25 @@ export default function Home() {
               Add Set
             </button>
             <button
-              className="rounded-lg bg-blue-600 px-5 py-2.5 text-base font-medium text-white shadow-sm transition-all duration-200 hover:bg-blue-500 hover:shadow-md active:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              className={`rounded-lg px-5 py-2.5 text-base font-medium text-white shadow-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+                sets.length === 0
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-blue-600 hover:bg-blue-500 hover:shadow-md active:bg-blue-700 focus:ring-blue-500"
+              }`}
               onClick={copyToClipboard}
+              disabled={sets.length === 0}
             >
               <FontAwesomeIcon icon={copied ? faClipboardCheck : faClipboard} className="mr-2" />
-              {copied ? "Copied!" : "Copy to Clipboard"}
+              Copy to Clipboard
             </button>
             <button
-              className="rounded-lg bg-red-600 px-5 py-2.5 text-base font-medium text-white shadow-sm transition-all duration-200 hover:bg-red-500 hover:shadow-md active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+              className={`rounded-lg px-5 py-2.5 text-base font-medium text-white shadow-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+                sets.length === 0
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-red-600 hover:bg-red-500 hover:shadow-md active:bg-red-700 focus:ring-red-500"
+              }`}
               onClick={clearWorkout}
+              disabled={sets.length === 0}
             >
               <FontAwesomeIcon icon={faTrash} className="mr-2" />
               Clear Workout
