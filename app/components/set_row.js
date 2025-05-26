@@ -18,7 +18,7 @@ const SetRow = forwardRef(({ index, set, onChange, onRemove }, ref) => {
       <td className="px-3 py-4 text-sm whitespace-nowrap text-gray-500">
         <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4">
           <div className="flex items-center gap-1">
-            <div className="mt-2 grid grid-cols-1 flex-1">
+            <div className="grid grid-cols-1 flex-1">
               <select
                 value={set.minutes}
                 onChange={(e) => handleChange("minutes", e.target.value)}
@@ -34,8 +34,8 @@ const SetRow = forwardRef(({ index, set, onChange, onRemove }, ref) => {
                 <path fillRule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
               </svg>
             </div>
-            <div className="mt-2 grid grid-cols-1 flex-none">:</div>
-            <div className="mt-2 grid grid-cols-1 flex-1">
+            <div className="grid grid-cols-1 flex-none">:</div>
+            <div className="grid grid-cols-1 flex-1">
               <select
                 value={set.seconds}
                 onChange={(e) => handleChange("seconds", e.target.value)}
@@ -52,8 +52,8 @@ const SetRow = forwardRef(({ index, set, onChange, onRemove }, ref) => {
               </svg>
             </div>
           </div>
-          <div className="mt-2 grid grid-cols-1 hidden sm:block">@</div>
-          <div className="mt-2 grid grid-cols-1">
+          <div className="grid grid-cols-1 hidden sm:block">@</div>
+          <div className="grid grid-cols-1">
             <select
               value={set.pace}
               onChange={(e) => handleChange("pace", e.target.value)}
