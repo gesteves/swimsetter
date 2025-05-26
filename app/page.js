@@ -73,66 +73,70 @@ export default function Home() {
   return (
     <main className="min-h-screen p-4 text-lg flex justify-center bg-blue-50">
       <div className="w-full max-w-screen-lg space-y-3">
-        <div className="overflow-hidden rounded-md bg-white px-6 py-4 shadow-sm">
-          <table className="min-w-full divide-y divide-gray-300">
-            <thead>
-              <tr>
-                <th className="py-3.5 pr-3 pl-4 text-left text-sm font-semibold text-gray-900 sm:pl-0">Set</th>
-                <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Duration</th>
-                <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Pace</th>
-                <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                  <span className="sr-only">Remove</span>
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              {sets.map((set, i) => (
-                <SetRow
-                  key={i}
-                  index={i}
-                  set={set}
-                  onChange={(updated) => updateSet(i, updated)}
-                  onRemove={() => removeSet(i)}
-                />
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <div className="overflow-hidden rounded-md bg-white px-6 py-4 shadow-sm">
-          <table className="min-w-full divide-y divide-gray-300">
-            <thead>
-              <tr>
-                <th className="py-3.5 pr-3 pl-4 text-left text-sm font-semibold text-gray-900 sm:pl-0">Sets</th>
-                <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Time</th>
-                <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Distance</th>
-                <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Pace</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              <tr>
-                <td className="py-4 pr-3 pl-4 text-sm text-gray-900 sm:pl-0">
-                  {sets.length}
-                </td>
-                <td className="py-4 px-3 text-sm text-gray-900">
-                  {totalTimeFormatted}
-                </td>
-                <td className="py-4 px-3 text-sm text-gray-900">
-                  {Math.round(totalDistance)}m
-                </td>
-                <td className="py-4 px-3 text-sm text-gray-900">
-                  {totalDistance > 0
-                    ? (() => {
-                        const paceSec = totalSeconds / (totalDistance / 100);
-                        const min = Math.floor(paceSec / 60);
-                        const sec = String(Math.round(paceSec % 60)).padStart(2, "0");
-                        return `${min}:${sec}/100m`;
-                      })()
-                    : "–"}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        {sets.length > 0 && (
+          <>
+            <div className="overflow-hidden rounded-md bg-white px-6 py-4 shadow-sm">
+              <table className="min-w-full divide-y divide-gray-300">
+                <thead>
+                  <tr>
+                    <th className="py-3.5 pr-3 pl-4 text-left text-sm font-semibold text-gray-900 sm:pl-0">Set</th>
+                    <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Duration</th>
+                    <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Pace</th>
+                    <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                      <span className="sr-only">Remove</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {sets.map((set, i) => (
+                    <SetRow
+                      key={i}
+                      index={i}
+                      set={set}
+                      onChange={(updated) => updateSet(i, updated)}
+                      onRemove={() => removeSet(i)}
+                    />
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="overflow-hidden rounded-md bg-white px-6 py-4 shadow-sm">
+              <table className="min-w-full divide-y divide-gray-300">
+                <thead>
+                  <tr>
+                    <th className="py-3.5 pr-3 pl-4 text-left text-sm font-semibold text-gray-900 sm:pl-0">Sets</th>
+                    <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Time</th>
+                    <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Distance</th>
+                    <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Pace</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  <tr>
+                    <td className="py-4 pr-3 pl-4 text-sm text-gray-900 sm:pl-0">
+                      {sets.length}
+                    </td>
+                    <td className="py-4 px-3 text-sm text-gray-900">
+                      {totalTimeFormatted}
+                    </td>
+                    <td className="py-4 px-3 text-sm text-gray-900">
+                      {Math.round(totalDistance)}m
+                    </td>
+                    <td className="py-4 px-3 text-sm text-gray-900">
+                      {totalDistance > 0
+                        ? (() => {
+                            const paceSec = totalSeconds / (totalDistance / 100);
+                            const min = Math.floor(paceSec / 60);
+                            const sec = String(Math.round(paceSec % 60)).padStart(2, "0");
+                            return `${min}:${sec}/100m`;
+                          })()
+                        : "–"}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </>
+        )}
         <div className="overflow-hidden rounded-md bg-white px-6 py-4 shadow-sm">
           <div className="flex justify-center gap-4">
             <button
