@@ -22,6 +22,7 @@ export default function Home() {
   const wakeLockRef = useRef(null);
 
   const requestWakeLock = async () => {
+    if (wakeLockRef.current) return; // Don't request if we already have it
     try {
       if ('wakeLock' in navigator) {
         wakeLockRef.current = await navigator.wakeLock.request('screen');
@@ -33,9 +34,6 @@ export default function Home() {
   };
 
   useEffect(() => {
-    // Initial wake lock request
-    requestWakeLock();
-
     // Handle visibility change
     const handleVisibilityChange = async () => {
       if (document.visibilityState === "visible") {
@@ -48,9 +46,24 @@ export default function Home() {
     // Cleanup function
     return () => {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
-      if (wakeLockRef.current) {
-        wakeLockRef.current.release().catch(console.error);
-      }
+    };
+  }, []);
+
+  // Request wake lock on any user interaction
+  useEffect(() => {
+    const handleInteraction = () => {
+      requestWakeLock();
+      // Remove listeners after first interaction
+      document.removeEventListener('click', handleInteraction);
+      document.removeEventListener('touchstart', handleInteraction);
+    };
+
+    document.addEventListener('click', handleInteraction);
+    document.addEventListener('touchstart', handleInteraction);
+
+    return () => {
+      document.removeEventListener('click', handleInteraction);
+      document.removeEventListener('touchstart', handleInteraction);
     };
   }, []);
 
