@@ -14,7 +14,7 @@ export default function SetRow({ index, set, onChange, onRemove }) {
       <td className="px-3 py-4 text-sm whitespace-nowrap text-gray-500">
         <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4">
           <div className="flex items-center gap-1">
-            <div className="mt-2 grid grid-cols-1">
+            <div className="mt-2 grid grid-cols-1 flex-1">
               <select
                 value={set.minutes}
                 onChange={(e) => handleChange("minutes", e.target.value)}
@@ -30,8 +30,8 @@ export default function SetRow({ index, set, onChange, onRemove }) {
                 <path fillRule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
               </svg>
             </div>
-            <div className="mt-2 grid grid-cols-1">:</div>
-            <div className="mt-2 grid grid-cols-1">
+            <div className="mt-2 grid grid-cols-1 flex-none">:</div>
+            <div className="mt-2 grid grid-cols-1 flex-1">
               <select
                 value={set.seconds}
                 onChange={(e) => handleChange("seconds", e.target.value)}
@@ -72,7 +72,7 @@ export default function SetRow({ index, set, onChange, onRemove }) {
         </div>
       </td>
 
-      <td className="relative py-4 pr-4 pl-3 text-right text-sm font-medium whitespace-nowrap sm:pr-0">
+      <td className="px-3 py-4 text-sm whitespace-nowrap text-gray-500 text-right">
         <button onClick={onRemove} className="text-red-600 hover:text-red-500 hover:underline">
           Remove <span className="sr-only"> Set {index + 1}</span>
         </button>
