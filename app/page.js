@@ -8,7 +8,7 @@ import {
   faCirclePlus, 
   faClipboard, 
   faClipboardCheck, 
-  faTrash 
+  faTrash
 } from '@fortawesome/free-solid-svg-icons';
 
 
@@ -80,6 +80,10 @@ export default function Home() {
 
     const lines = Object.entries(grouped).map(([label, count]) => `${count}×${label}`);
     lines.push("---");
+    lines.push(`${totalTimeFormatted} total`);
+    const avgPace = Math.round(totalSeconds / (totalDistance / 100));
+    const avgPaceFormatted = `${Math.floor(avgPace / 60)}:${String(avgPace % 60).padStart(2, "0")}/100m`;
+    lines.push(`${avgPaceFormatted} avg pace`);
     lines.push(`${Math.round(totalDistance)} m`);    
 
     navigator.clipboard.writeText(lines.join("\n")).then(() => {
@@ -130,7 +134,7 @@ export default function Home() {
               <table className="min-w-full divide-y divide-gray-300">
                 <thead>
                   <tr>
-                    <th className="py-3.5 pr-3 pl-4 text-left text-sm font-semibold text-gray-900 sm:pl-0">Sets</th>
+                    <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Sets</th>
                     <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Time</th>
                     <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Distance</th>
                     <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Pace</th>
@@ -161,6 +165,48 @@ export default function Home() {
                 </tbody>
               </table>
             </div>
+            <div className="overflow-hidden rounded-md bg-white px-6 py-4 shadow-sm">
+              <p className="px-3 py-3.5 text-sm font-semibold text-gray-900">Workout Summary</p>
+              <pre className="px-3 py-3.5 text-sm text-gray-600 font-mono whitespace-pre border-t border-b border-gray-300">
+                {(() => {
+                  const grouped = {};
+                  sets.forEach(s => {
+                    const pace = `${Math.floor(s.pace / 60)}:${String(s.pace % 60).padStart(2, "0")}/100m`;
+                    const label = `${s.minutes}min @ ${pace}`;
+                    grouped[label] = (grouped[label] || 0) + 1;
+                  });
+
+                  const lines = Object.entries(grouped).map(([label, count]) => `${count}×${label}`);
+                  lines.push("---");
+                  lines.push(`${totalTimeFormatted} total`);
+                  const avgPace = Math.round(totalSeconds / (totalDistance / 100));
+                  const avgPaceFormatted = `${Math.floor(avgPace / 60)}:${String(avgPace % 60).padStart(2, "0")}/100m`;
+                  lines.push(`${avgPaceFormatted} avg pace`);
+                  lines.push(`${Math.round(totalDistance)} m`);
+
+                  return lines.join("\n");
+                })()}
+              </pre>
+              <button
+                className={`px-3 py-3.5 text-sm mt=4 transition-colors text-blue-600 hover:text-blue-500`}
+                onClick={copyToClipboard}
+              >
+                <FontAwesomeIcon icon={copied ? faClipboardCheck : faClipboard} className="mr-1" />
+                {copied ? "Copied to clipboard!" : "Copy to clipboard"}
+              </button>
+            </div>
+            <button
+              className={`rounded-lg px-5 py-2.5 text-base font-medium text-white shadow-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 float-right ${
+                sets.length === 0
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-red-600 hover:bg-red-500 hover:shadow-md active:bg-red-700 focus:ring-red-500"
+              }`}
+              onClick={clearWorkout}
+              disabled={sets.length === 0}
+            >
+              <FontAwesomeIcon icon={faTrash} className="mr-2" />
+              Clear Workout
+            </button>
           </>
         )}
         <div ref={buttonCardRef} className="fixed bottom-0 left-0 right-0 overflow-hidden bg-white px-6 py-4 shadow-sm">
@@ -171,30 +217,6 @@ export default function Home() {
             >
               <FontAwesomeIcon icon={faCirclePlus} className="mr-2" />
               Add Set
-            </button>
-            <button
-              className={`rounded-lg px-5 py-2.5 text-base font-medium text-white shadow-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
-                sets.length === 0
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-blue-600 hover:bg-blue-500 hover:shadow-md active:bg-blue-700 focus:ring-blue-500"
-              }`}
-              onClick={copyToClipboard}
-              disabled={sets.length === 0}
-            >
-              <FontAwesomeIcon icon={copied ? faClipboardCheck : faClipboard} className="mr-2" />
-              {copied ? "Copied!" : "Copy to Clipboard"}
-            </button>
-            <button
-              className={`rounded-lg px-5 py-2.5 text-base font-medium text-white shadow-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
-                sets.length === 0
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-red-600 hover:bg-red-500 hover:shadow-md active:bg-red-700 focus:ring-red-500"
-              }`}
-              onClick={clearWorkout}
-              disabled={sets.length === 0}
-            >
-              <FontAwesomeIcon icon={faTrash} className="mr-2" />
-              Clear Workout
             </button>
           </div>
         </div>

@@ -1,6 +1,8 @@
 "use client"
 
 import { forwardRef } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleMinus } from '@fortawesome/free-solid-svg-icons';
 
 const SetRow = forwardRef(({ index, set, onChange, onRemove }, ref) => {
   const handleChange = (key, value) => {
@@ -74,9 +76,9 @@ const SetRow = forwardRef(({ index, set, onChange, onRemove }, ref) => {
         </div>
       </td>
 
-      <td className="px-3 py-4 text-sm whitespace-nowrap text-gray-500 text-right">
-        <button onClick={onRemove} className="text-red-600 hover:text-red-500 hover:underline">
-          Remove <span className="sr-only"> Set {index + 1}</span>
+      <td className="px-3 py-4 text-right">
+        <button aria-label={`Remove set ${index + 1}`} onClick={onRemove} className="text-red-600 hover:text-red-500 hover:underline">
+          <FontAwesomeIcon icon={faCircleMinus} />
         </button>
       </td>
     </tr>
