@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import SetRow from "./components/set_row";
 import { loadSets, saveSets, loadLastSet } from "./utils/storage";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -15,6 +15,8 @@ import {
 export default function Home() {
   const [sets, setSets] = useState([]);
   const [copied, setCopied] = useState(false);
+  const [bottomPadding, setBottomPadding] = useState(0);
+  const buttonCardRef = useRef(null);
 
   useEffect(() => {
     setSets(loadSets());
@@ -23,6 +25,12 @@ export default function Home() {
   useEffect(() => {
     saveSets(sets);
   }, [sets]);
+
+  useEffect(() => {
+    if (buttonCardRef.current) {
+      setBottomPadding(buttonCardRef.current.offsetHeight);
+    }
+  }, []);
 
   const updateSet = (index, updatedSet) => {
     const newSets = [...sets];
@@ -71,7 +79,10 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen p-4 text-lg flex justify-center bg-blue-50">
+    <main 
+      className="min-h-screen p-4 text-lg flex justify-center bg-blue-50"
+      style={{ paddingBottom: `${bottomPadding}px` }}
+    >
       <div className="w-full max-w-screen-lg space-y-3">
         {sets.length > 0 && (
           <>
@@ -136,7 +147,7 @@ export default function Home() {
             </div>
           </>
         )}
-        <div className="overflow-hidden rounded-md bg-white px-6 py-4 shadow-sm">
+        <div ref={buttonCardRef} className="fixed bottom-0 left-0 right-0 overflow-hidden bg-white px-6 py-4 shadow-sm">
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <button
               className="rounded-lg bg-blue-600 px-5 py-2.5 text-base font-medium text-white shadow-sm transition-all duration-200 hover:bg-blue-500 hover:shadow-md active:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
@@ -161,7 +172,6 @@ export default function Home() {
             </button>
           </div>
         </div>
-
       </div>
     </main>
   );
