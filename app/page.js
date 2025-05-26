@@ -80,8 +80,7 @@ export default function Home() {
                 <thead>
                   <tr>
                     <th className="py-3.5 pr-3 pl-4 text-left text-sm font-semibold text-gray-900 sm:pl-0">Set</th>
-                    <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Duration</th>
-                    <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Pace</th>
+                    <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Duration & Pace</th>
                     <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                       <span className="sr-only">Remove</span>
                     </th>
@@ -138,7 +137,7 @@ export default function Home() {
           </>
         )}
         <div className="overflow-hidden rounded-md bg-white px-6 py-4 shadow-sm">
-          <div className="flex justify-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
             <button
               className="rounded-lg bg-blue-600 px-5 py-2.5 text-base font-medium text-white shadow-sm transition-all duration-200 hover:bg-blue-500 hover:shadow-md active:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
               onClick={addSet}
