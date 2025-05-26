@@ -150,7 +150,7 @@ export default function Home() {
               onClick={copyToClipboard}
             >
               <FontAwesomeIcon icon={copied ? faClipboardCheck : faClipboard} className="mr-2" />
-              Copy to Clipboard
+              {copied ? "Copied!" : "Copy to Clipboard"}
             </button>
             <button
               className="rounded-lg bg-red-600 px-5 py-2.5 text-base font-medium text-white shadow-sm transition-all duration-200 hover:bg-red-500 hover:shadow-md active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
