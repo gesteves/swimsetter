@@ -135,6 +135,15 @@ export default function Home() {
                 </tbody>
               </table>
             </div>
+            <div className="text-center">
+              <button
+                className="px-3 py-3.5 text-sm transition-colors text-red-600 hover:text-red-500"
+                onClick={clearWorkout}
+              >
+                <FontAwesomeIcon icon={faTrash} className="mr-1" />
+                Delete all sets
+              </button>
+            </div>
             <div className="overflow-hidden rounded-md bg-white px-6 py-4 shadow-sm">
               <table className="min-w-full divide-y divide-gray-300">
                 <thead>
@@ -184,15 +193,6 @@ export default function Home() {
                   {copied ? "Copied to clipboard!" : "Copy to clipboard"}
                 </button>
               </div>
-            </div>
-            <div className="text-center">
-              <button
-                className="px-3 py-3.5 text-sm transition-colors text-red-600 hover:text-red-500"
-                onClick={clearWorkout}
-              >
-                <FontAwesomeIcon icon={faTrash} className="mr-1" />
-                Delete all sets
-              </button>
             </div>
           </>
         )}
