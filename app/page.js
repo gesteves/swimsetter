@@ -177,7 +177,7 @@ export default function Home() {
               disabled={sets.length === 0}
             >
               <FontAwesomeIcon icon={copied ? faClipboardCheck : faClipboard} className="mr-2" />
-              Copy to Clipboard
+              {copied ? "Copied!" : "Copy to Clipboard"}
             </button>
             <button
               className={`rounded-lg px-5 py-2.5 text-base font-medium text-white shadow-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
