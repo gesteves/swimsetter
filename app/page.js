@@ -78,7 +78,7 @@ export default function Home() {
   };
 
   const clearWorkout = () => {
-    if (confirm("Clear the current workout? This cannot be undone.")) {
+    if (confirm("Are you sure you want to empty the entire workout? This cannot be undone.")) {
       setSets([]);
     }
   };
@@ -105,7 +105,7 @@ export default function Home() {
       <div className="w-full max-w-screen-lg space-y-3">
         {sets.length === 0 && (
           <div className="overflow-hidden rounded-md bg-white px-6 py-4 shadow-sm">
-            <p className="text-gray-600 text-center">Hello, please add a set to get started.</p>
+            <p className="text-gray-600 text-center">Add a set to get started.</p>
           </div>
         )}
         {sets.length > 0 && (
@@ -175,26 +175,25 @@ export default function Home() {
               <pre className="px-3 py-3.5 text-sm text-gray-600 font-mono whitespace-pre border-t border-b border-gray-300">
                 {generateWorkoutSummary()}
               </pre>
+              <div className="text-center">
+                <button
+                  className="px-3 py-3.5 text-sm transition-colors text-blue-600 hover:text-blue-500"
+                  onClick={copyToClipboard}
+                >
+                  <FontAwesomeIcon icon={copied ? faClipboardCheck : faClipboard} className="mr-1" />
+                  {copied ? "Copied to clipboard!" : "Copy to clipboard"}
+                </button>
+              </div>
+            </div>
+            <div className="text-center">
               <button
-                className="px-3 py-3.5 text-sm mt-4 transition-colors text-blue-600 hover:text-blue-500"
-                onClick={copyToClipboard}
+                className="px-3 py-3.5 text-sm transition-colors text-red-600 hover:text-red-500"
+                onClick={clearWorkout}
               >
-                <FontAwesomeIcon icon={copied ? faClipboardCheck : faClipboard} className="mr-1" />
-                {copied ? "Copied to clipboard!" : "Copy to clipboard"}
+                <FontAwesomeIcon icon={faTrash} className="mr-1" />
+                Delete all sets
               </button>
             </div>
-            <button
-              className={`rounded-lg px-5 py-2.5 text-base font-medium text-white shadow-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 float-right ${
-                sets.length === 0
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-red-600 hover:bg-red-500 hover:shadow-md active:bg-red-700 focus:ring-red-500"
-              }`}
-              onClick={clearWorkout}
-              disabled={sets.length === 0}
-            >
-              <FontAwesomeIcon icon={faTrash} className="mr-2" />
-              Clear Workout
-            </button>
           </>
         )}
         <div ref={buttonCardRef} className="fixed bottom-0 left-0 right-0 overflow-hidden bg-white px-6 py-4 shadow-sm">
