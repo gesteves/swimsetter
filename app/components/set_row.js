@@ -1,12 +1,14 @@
 "use client"
 
-export default function SetRow({ index, set, onChange, onRemove }) {
+import { forwardRef } from "react";
+
+const SetRow = forwardRef(({ index, set, onChange, onRemove }, ref) => {
   const handleChange = (key, value) => {
     onChange({ ...set, [key]: parseInt(value, 10) });
   };
 
   return (
-    <tr>
+    <tr ref={ref}>
       <td className="py-4 pr-3 pl-4 text-sm font-bold whitespace-nowrap text-gray-900 sm:pl-0">
         {index + 1}
       </td>
@@ -79,4 +81,8 @@ export default function SetRow({ index, set, onChange, onRemove }) {
       </td>
     </tr>
   );
-}
+});
+
+SetRow.displayName = "SetRow";
+
+export default SetRow;

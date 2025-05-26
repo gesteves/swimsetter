@@ -17,6 +17,7 @@ export default function Home() {
   const [copied, setCopied] = useState(false);
   const [bottomPadding, setBottomPadding] = useState(0);
   const buttonCardRef = useRef(null);
+  const lastSetRef = useRef(null);
 
   useEffect(() => {
     setSets(loadSets());
@@ -31,6 +32,12 @@ export default function Home() {
       setBottomPadding(buttonCardRef.current.offsetHeight);
     }
   }, []);
+
+  useEffect(() => {
+    if (lastSetRef.current) {
+      lastSetRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [sets.length]);
 
   const updateSet = (index, updatedSet) => {
     const newSets = [...sets];
@@ -105,6 +112,7 @@ export default function Home() {
                       set={set}
                       onChange={(updated) => updateSet(i, updated)}
                       onRemove={() => removeSet(i)}
+                      ref={i === sets.length - 1 ? lastSetRef : null}
                     />
                   ))}
                 </tbody>
