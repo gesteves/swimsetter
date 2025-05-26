@@ -20,6 +20,26 @@ export default function Home() {
   const lastSetRef = useRef(null);
   const shouldScrollRef = useRef(false);
 
+  const generateWorkoutSummary = () => {
+    const grouped = {};
+    sets.forEach(s => {
+      const pace = `${Math.floor(s.pace / 60)}:${String(s.pace % 60).padStart(2, "0")}/100m`;
+      const duration = `${s.minutes}:${String(s.seconds).padStart(2, "0")}`;
+      const label = `${duration} @ ${pace}`;
+      grouped[label] = (grouped[label] || 0) + 1;
+    });
+
+    const lines = Object.entries(grouped).map(([label, count]) => `${count}×${label}`);
+    lines.push("");
+    lines.push(`${totalTimeFormatted} total`);
+    const avgPace = Math.round(totalSeconds / (totalDistance / 100));
+    const avgPaceFormatted = `${Math.floor(avgPace / 60)}:${String(avgPace % 60).padStart(2, "0")}/100m`;
+    lines.push(`${avgPaceFormatted} avg. pace`);
+    lines.push(`${Math.round(totalDistance)} m`);
+
+    return lines.join("\n");
+  };
+
   useEffect(() => {
     setSets(loadSets());
   }, []);
@@ -71,22 +91,7 @@ export default function Home() {
   const totalTimeFormatted = `${Math.floor(totalSeconds / 60)}:${String(totalSeconds % 60).padStart(2, "0")}`;
 
   const copyToClipboard = () => {
-    const grouped = {};
-    sets.forEach(s => {
-      const pace = `${Math.floor(s.pace / 60)}:${String(s.pace % 60).padStart(2, "0")}/100m`;
-      const label = `${s.minutes}min @ ${pace}`;
-      grouped[label] = (grouped[label] || 0) + 1;
-    });
-
-    const lines = Object.entries(grouped).map(([label, count]) => `${count}×${label}`);
-    lines.push("---");
-    lines.push(`${totalTimeFormatted} total`);
-    const avgPace = Math.round(totalSeconds / (totalDistance / 100));
-    const avgPaceFormatted = `${Math.floor(avgPace / 60)}:${String(avgPace % 60).padStart(2, "0")}/100m`;
-    lines.push(`${avgPaceFormatted} avg pace`);
-    lines.push(`${Math.round(totalDistance)} m`);    
-
-    navigator.clipboard.writeText(lines.join("\n")).then(() => {
+    navigator.clipboard.writeText(generateWorkoutSummary()).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     });
@@ -168,27 +173,10 @@ export default function Home() {
             <div className="overflow-hidden rounded-md bg-white px-6 py-4 shadow-sm">
               <p className="px-3 py-3.5 text-sm font-semibold text-gray-900">Workout Summary</p>
               <pre className="px-3 py-3.5 text-sm text-gray-600 font-mono whitespace-pre border-t border-b border-gray-300">
-                {(() => {
-                  const grouped = {};
-                  sets.forEach(s => {
-                    const pace = `${Math.floor(s.pace / 60)}:${String(s.pace % 60).padStart(2, "0")}/100m`;
-                    const label = `${s.minutes}min @ ${pace}`;
-                    grouped[label] = (grouped[label] || 0) + 1;
-                  });
-
-                  const lines = Object.entries(grouped).map(([label, count]) => `${count}×${label}`);
-                  lines.push("---");
-                  lines.push(`${totalTimeFormatted} total`);
-                  const avgPace = Math.round(totalSeconds / (totalDistance / 100));
-                  const avgPaceFormatted = `${Math.floor(avgPace / 60)}:${String(avgPace % 60).padStart(2, "0")}/100m`;
-                  lines.push(`${avgPaceFormatted} avg pace`);
-                  lines.push(`${Math.round(totalDistance)} m`);
-
-                  return lines.join("\n");
-                })()}
+                {generateWorkoutSummary()}
               </pre>
               <button
-                className={`px-3 py-3.5 text-sm mt=4 transition-colors text-blue-600 hover:text-blue-500`}
+                className="px-3 py-3.5 text-sm mt-4 transition-colors text-blue-600 hover:text-blue-500"
                 onClick={copyToClipboard}
               >
                 <FontAwesomeIcon icon={copied ? faClipboardCheck : faClipboard} className="mr-1" />
