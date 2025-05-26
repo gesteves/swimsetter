@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import SetRow from "./components/set_row";
-import { loadSets, saveSets } from "./utils/storage";
+import { loadSets, saveSets, loadLastSet } from "./utils/storage";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faCirclePlus, 
@@ -31,8 +31,8 @@ export default function Home() {
   };
 
   const addSet = () => {
-    const last = sets.at(-1) || { minutes: 1, seconds: 0, pace: 68 };
-    setSets([...sets, last]);
+    const lastSet = loadLastSet();
+    setSets([...sets, lastSet]);
   };
 
   const removeSet = (index) => {
