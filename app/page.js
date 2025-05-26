@@ -36,7 +36,7 @@ export default function Home() {
     if (!hasNonZeroSets) return "";
 
     const lines = Object.entries(grouped).map(([label, count]) => `${count}×${label}`);
-    lines.push("");
+    lines.push("---");
     lines.push(`${totalTimeFormatted} total`);
     const avgPace = Math.round(totalSeconds / (totalDistance / 100));
     const avgPaceFormatted = `${Math.floor(avgPace / 60)}:${String(avgPace % 60).padStart(2, "0")}/100m`;
