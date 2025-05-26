@@ -19,6 +19,40 @@ export default function Home() {
   const buttonCardRef = useRef(null);
   const lastSetRef = useRef(null);
   const shouldScrollRef = useRef(false);
+  const wakeLockRef = useRef(null);
+
+  const requestWakeLock = async () => {
+    try {
+      if ('wakeLock' in navigator) {
+        wakeLockRef.current = await navigator.wakeLock.request('screen');
+      }
+    } catch (err) {
+      // Wake lock request failed - usually due to permission denied or not supported
+      console.log('Wake lock request failed:', err);
+    }
+  };
+
+  useEffect(() => {
+    // Initial wake lock request
+    requestWakeLock();
+
+    // Handle visibility change
+    const handleVisibilityChange = async () => {
+      if (document.visibilityState === "visible") {
+        await requestWakeLock();
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    // Cleanup function
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      if (wakeLockRef.current) {
+        wakeLockRef.current.release().catch(console.error);
+      }
+    };
+  }, []);
 
   const generateWorkoutSummary = () => {
     const grouped = {};
