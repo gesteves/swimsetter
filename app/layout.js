@@ -12,8 +12,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Swim Set Tracker",
-  description: "Track your endless pool swim workouts by time and pace",
+  title: "Endless Pool Set Tracker",
+  description: "Track your Endless Pool swim workouts by time and pace",
 };
 
 export default function RootLayout({ children }) {
