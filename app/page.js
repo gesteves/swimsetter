@@ -18,6 +18,7 @@ export default function Home() {
   const [bottomPadding, setBottomPadding] = useState(0);
   const buttonCardRef = useRef(null);
   const lastSetRef = useRef(null);
+  const shouldScrollRef = useRef(false);
 
   useEffect(() => {
     setSets(loadSets());
@@ -34,8 +35,9 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (lastSetRef.current) {
+    if (lastSetRef.current && shouldScrollRef.current) {
       lastSetRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+      shouldScrollRef.current = false;
     }
   }, [sets.length]);
 
@@ -47,6 +49,7 @@ export default function Home() {
 
   const addSet = () => {
     const lastSet = loadLastSet();
+    shouldScrollRef.current = true;
     setSets([...sets, lastSet]);
   };
 
