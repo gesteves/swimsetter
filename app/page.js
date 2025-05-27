@@ -26,7 +26,6 @@ export default function Home() {
     try {
       if ('wakeLock' in navigator) {
         wakeLockRef.current = await navigator.wakeLock.request('screen');
-        console.log('Wake lock request successful');
       }
     } catch (err) {
       // Wake lock request failed - usually due to permission denied or not supported
