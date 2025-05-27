@@ -77,8 +77,8 @@ export default function Home() {
   return (
     <main className="min-h-[100dvh] p-4 text-lg flex justify-center bg-blue-50 pb-[var(--bottom-padding)]">
       <div className="w-full max-w-lg space-y-3">
-        {sets.length === 0 && <Intro />}
         <Preferences useYards={useYards} setUseYards={setUseYards} />
+        {sets.length === 0 && <Intro />}
         {sets.length > 0 && (
           <>
             <WorkoutSets
