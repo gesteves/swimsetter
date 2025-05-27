@@ -4,7 +4,7 @@ import { forwardRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleMinus } from '@fortawesome/free-solid-svg-icons';
 
-const SetRow = forwardRef(({ index, set, onChange, onRemove }, ref) => {
+const Set = forwardRef(({ index, set, onChange, onRemove }, ref) => {
   const handleChange = (key, value) => {
     onChange({ ...set, [key]: parseInt(value, 10) });
   };
@@ -85,6 +85,6 @@ const SetRow = forwardRef(({ index, set, onChange, onRemove }, ref) => {
   );
 });
 
-SetRow.displayName = "SetRow";
+Set.displayName = "Set";
 
-export default SetRow;
+export default Set; 
