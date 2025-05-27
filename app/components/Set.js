@@ -28,7 +28,7 @@ const Set = forwardRef(function Set({ index, set, onUpdate, onRemove }, ref) {
     const secPart = String(sec % 60).padStart(2, "0");
     return (
       <option key={sec} value={sec}>
-        {min}:{secPart}/100m
+        {min}:{secPart}/100 m
       </option>
     );
   });

@@ -41,10 +41,10 @@ export default function WorkoutStats({ stats, onCopy }) {
               {stats.totalTime}
             </TableCell>
             <TableCell>
-              {stats.totalDistance}m
+              {stats.totalDistance.toLocaleString()} m
             </TableCell>
             <TableCell>
-              {stats.totalDistance > 0 ? stats.avgPace : "–"}
+              {stats.totalDistance > 0 ? stats.avgPace : "—"}
             </TableCell>
           </tr>
         </TableBody>
