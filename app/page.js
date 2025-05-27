@@ -28,6 +28,7 @@ export default function Home() {
   useEffect(() => {
     if (buttonCardRef.current) {
       const height = buttonCardRef.current.offsetHeight;
+      console.log(height);
       document.documentElement.style.setProperty('--bottom-padding', `${height}px`);
     }
   }, []);

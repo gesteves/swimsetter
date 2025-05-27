@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClipboard, faClipboardCheck } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
+import Card from './Card';
 
 export default function WorkoutSummary({ summary, onCopy }) {
   const [copied, setCopied] = useState(false);
@@ -14,7 +15,7 @@ export default function WorkoutSummary({ summary, onCopy }) {
   if (!summary) return null;
 
   return (
-    <div className="overflow-hidden rounded-md bg-white px-6 py-4 shadow-sm">
+    <Card>
       <p className="px-3 py-3.5 text-sm font-semibold text-gray-900">Workout Summary</p>
       <pre className="px-3 py-3.5 text-sm text-gray-600 font-mono whitespace-pre border-t border-b border-gray-300">
         {summary}
@@ -28,6 +29,6 @@ export default function WorkoutSummary({ summary, onCopy }) {
           {copied ? "Copied to clipboard!" : "Copy to clipboard"}
         </button>
       </div>
-    </div>
+    </Card>
   );
 } 
