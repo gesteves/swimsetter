@@ -3,8 +3,8 @@ import { GeistMono } from 'geist/font/mono';
 import "./globals.css";
 
 export const metadata = {
-  title: "Endless Pool Set Tracker",
-  description: "Track your Endless Pool swim workouts by time and pace",
+  title: "SwimSetter · Given to Tri",
+  description: "Track your Endless Pool swim workouts by time and pace.",
 };
 
 export const viewport = {
