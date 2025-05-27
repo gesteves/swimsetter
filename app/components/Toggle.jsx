@@ -21,8 +21,8 @@ export default function Toggle({ label, description, onChange, checked = false }
         />
       </button>
       {(label || description) && (
-        <span className="ml-3 text-sm" id={`${label?.toLowerCase().replace(/\s+/g, '-')}-label`}>
-          {label && <span className="font-medium text-gray-900">{label}</span>}
+        <span className="ml-3 text-base" id={`${label?.toLowerCase().replace(/\s+/g, '-')}-label`}>
+          {label && <span className="text-gray-700">{label}</span>}
           {description && <span className="text-gray-500"> {description}</span>}
         </span>
       )}
