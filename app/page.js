@@ -28,10 +28,9 @@ export default function Home() {
   useEffect(() => {
     if (buttonCardRef.current) {
       const height = buttonCardRef.current.offsetHeight;
-      console.log(height);
       document.documentElement.style.setProperty('--bottom-padding', `${height}px`);
     }
-  }, []);
+  }, [sets]);
 
   useEffect(() => {
     if (lastSetRef.current && shouldScrollRef.current) {
@@ -85,9 +84,7 @@ export default function Home() {
             />
           </>
         )}
-        <div ref={buttonCardRef}>
-          <ButtonCard onAddSet={addSet} />
-        </div>
+        <ButtonCard ref={buttonCardRef} onAddSet={addSet} />
       </div>
     </main>
   );

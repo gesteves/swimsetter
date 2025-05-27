@@ -1,10 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import Card from './Card';
+import { forwardRef } from 'react';
 
-export default function ButtonCard({ onAddSet }) {
+const ButtonCard = forwardRef(function ButtonCard({ onAddSet }, ref) {
   return (
-    <div className="fixed bottom-0 left-0 right-0">
+    <div ref={ref} className="fixed bottom-0 left-0 right-0">
       <Card>
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <button
@@ -18,4 +19,8 @@ export default function ButtonCard({ onAddSet }) {
       </Card>
     </div>
   );
-} 
+});
+
+ButtonCard.displayName = "ButtonCard";
+
+export default ButtonCard; 
