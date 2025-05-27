@@ -1,16 +1,12 @@
 "use client";
 
-import { isProduction, getRootUrl } from "../utils/env";
+import { isProduction, getSiteDomain } from "../utils/env";
 
 export default function Analytics() {
   if (!isProduction()) return null;
 
-  let siteDomain = null;
-  try {
-    siteDomain = new URL(getRootUrl()).hostname;
-  } catch {
-    return null;
-  }
+  const siteDomain = getSiteDomain();
+  if (!siteDomain) return null;
 
   return (
     <script
