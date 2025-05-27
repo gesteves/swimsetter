@@ -6,6 +6,9 @@ import { faCircleMinus } from '@fortawesome/free-solid-svg-icons';
 import { TableCell } from './Table';
 import Select from './Select';
 
+const PACE_MIN = 50;  // 0:50/100m
+const PACE_MAX = 150; // 2:30/100m
+
 const Set = forwardRef(function Set({ index, set, onUpdate, onRemove }, ref) {
   const handleChange = (key, value) => {
     onUpdate({ ...set, [key]: parseInt(value, 10) });
@@ -23,7 +26,7 @@ const Set = forwardRef(function Set({ index, set, onUpdate, onRemove }, ref) {
     </option>
   ));
 
-  const paceOptions = Array.from({ length: 83 }, (_, i) => 68 + i).map((sec) => {
+  const paceOptions = Array.from({ length: PACE_MAX - PACE_MIN + 1 }, (_, i) => PACE_MIN + i).map((sec) => {
     const min = Math.floor(sec / 60);
     const secPart = String(sec % 60).padStart(2, "0");
     return (
@@ -78,4 +81,4 @@ const Set = forwardRef(function Set({ index, set, onUpdate, onRemove }, ref) {
 
 Set.displayName = "Set";
 
-export default Set; 
+export default Set;
