@@ -1,17 +1,21 @@
 "use client"
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export function useWakeLock() {
   const wakeLockRef = useRef(null)
+  const [wakeLockActive, setWakeLockActive] = useState(false)
+  const [wakeLockRequested, setWakeLockRequested] = useState(false)
 
   const requestWakeLock = async () => {
     if (!navigator.wakeLock) return
 
     try {
       wakeLockRef.current = await navigator.wakeLock.request('screen')
+      setWakeLockActive(true)
     } catch (err) {
       console.error('Failed to request wake lock:', err)
+      setWakeLockActive(false)
     }
   }
 
@@ -19,12 +23,17 @@ export function useWakeLock() {
     if (wakeLockRef.current) {
       wakeLockRef.current.release()
       wakeLockRef.current = null
+      setWakeLockActive(false)
     }
   }
 
   useEffect(() => {
     const handleVisibilityChange = async () => {
-      if (document.visibilityState === 'visible' && wakeLockRef.current === null) {
+      if (
+        document.visibilityState === 'visible' &&
+        wakeLockRequested &&
+        wakeLockRef.current === null
+      ) {
         await requestWakeLock()
       }
     }
@@ -34,7 +43,23 @@ export function useWakeLock() {
       document.removeEventListener('visibilitychange', handleVisibilityChange)
       releaseWakeLock()
     }
-  }, [])
+  }, [wakeLockRequested])
 
-  return { requestWakeLock, releaseWakeLock }
+  // When user toggles, request or release the lock
+  useEffect(() => {
+    if (wakeLockRequested) {
+      requestWakeLock()
+    } else {
+      releaseWakeLock()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [wakeLockRequested])
+
+  return {
+    requestWakeLock,
+    releaseWakeLock,
+    wakeLockActive,
+    wakeLockRequested,
+    setWakeLockRequested,
+  }
 } 

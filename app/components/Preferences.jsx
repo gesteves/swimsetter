@@ -4,19 +4,12 @@ import React from 'react'
 import Card from './Card'
 import Toggle from './Toggle'
 import { useWakeLock } from '../utils/wakeLock'
-import { usePreferences } from '../utils/preferences'
 
 export default function Preferences() {
-  const { requestWakeLock, releaseWakeLock } = useWakeLock()
-  const [preferences, updatePreferences] = usePreferences()
+  const { wakeLockRequested, setWakeLockRequested, wakeLockActive } = useWakeLock()
 
-  const handleWakeLockToggle = async (checked) => {
-    if (checked) {
-      await requestWakeLock()
-    } else {
-      releaseWakeLock()
-    }
-    updatePreferences({ wakeLock: checked })
+  const handleWakeLockToggle = (checked) => {
+    setWakeLockRequested(checked)
   }
 
   return (
@@ -24,7 +17,7 @@ export default function Preferences() {
       <div className="space-y-4">
         <Toggle
           label="Prevent the screen from turning off"
-          checked={preferences.wakeLock}
+          checked={wakeLockRequested}
           onChange={handleWakeLockToggle}
         />
       </div>
