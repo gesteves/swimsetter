@@ -4,7 +4,7 @@ import Set from './Set';
 import Card from './Card';
 import { Table, TableHeader, TableHeaderCell, TableBody } from './Table';
 
-export default function WorkoutSets({ sets, onUpdateSet, onRemoveSet, onClearWorkout, lastSetRef }) {
+export default function WorkoutSets({ sets, onUpdateSet, onRemoveSet, onClearWorkout, lastSetRef, useYards }) {
   return (
     <Card
       footer={
@@ -32,6 +32,7 @@ export default function WorkoutSets({ sets, onUpdateSet, onRemoveSet, onClearWor
               onUpdate={(updatedSet) => onUpdateSet(index, updatedSet)}
               onRemove={() => onRemoveSet(index)}
               ref={index === sets.length - 1 ? lastSetRef : null}
+              useYards={useYards}
             />
           ))}
         </TableBody>

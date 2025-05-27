@@ -5,17 +5,27 @@ import WorkoutSets from "./components/WorkoutSets";
 import WorkoutStats from "./components/WorkoutStats";
 import ButtonCard from "./components/ButtonCard";
 import Intro from "./components/Intro";
-import { loadSets, saveSets, loadLastSet } from "./utils/storage";
+import { loadSets, saveSets, loadLastSet, loadPreferences } from "./utils/storage";
 import { useWakeLock } from "./utils/wakeLock";
 import { generateWorkoutSummary } from "./utils/workoutSummary";
 import Preferences from "./components/Preferences";
 
 export default function Home() {
   const [sets, setSets] = useState([]);
+  const [useYards, setUseYardsState] = useState(false);
   const buttonCardRef = useRef(null);
   const lastSetRef = useRef(null);
   const shouldScrollRef = useRef(false);
   const { requestWakeLock } = useWakeLock();
+
+  useEffect(() => {
+    const { useYards: savedUseYards } = loadPreferences();
+    setUseYardsState(savedUseYards);
+  }, []);
+
+  const setUseYards = (value) => {
+    setUseYardsState(value);
+  };
 
   useEffect(() => {
     setSets(loadSets());
@@ -62,13 +72,13 @@ export default function Home() {
     }
   };
 
-  const workoutData = generateWorkoutSummary(sets);
+  const workoutData = generateWorkoutSummary(sets, useYards);
 
   return (
     <main className="min-h-[100dvh] p-4 text-lg flex justify-center bg-blue-50 pb-[var(--bottom-padding)]">
       <div className="w-full max-w-lg space-y-3">
         {sets.length === 0 && <Intro />}
-        <Preferences />
+        <Preferences useYards={useYards} setUseYards={setUseYards} />
         {sets.length > 0 && (
           <>
             <WorkoutSets
@@ -77,10 +87,12 @@ export default function Home() {
               onRemoveSet={removeSet}
               onClearWorkout={clearWorkout}
               lastSetRef={lastSetRef}
+              useYards={useYards}
             />
             <WorkoutStats 
               stats={workoutData.stats} 
               onCopy={() => navigator.clipboard.writeText(workoutData.summary)} 
+              useYards={useYards}
             />
           </>
         )}

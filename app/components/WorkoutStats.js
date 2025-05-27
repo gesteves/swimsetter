@@ -4,8 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClipboard, faClipboardCheck } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 
-export default function WorkoutStats({ stats, onCopy }) {
+export default function WorkoutStats({ stats, onCopy, useYards }) {
   const [copied, setCopied] = useState(false);
+  const unit = useYards ? 'yd' : 'm';
 
   const handleCopy = () => {
     onCopy();
@@ -41,10 +42,10 @@ export default function WorkoutStats({ stats, onCopy }) {
               {stats.totalTime}
             </TableCell>
             <TableCell>
-              {stats.totalDistance.toLocaleString()} m
+              {stats.totalDistance.toLocaleString()} {unit}
             </TableCell>
             <TableCell>
-              {stats.totalDistance > 0 ? stats.avgPace : "—"}
+              {stats.totalDistance > 0 ? stats.avgPace.replace(/m$/, unit) : "—"}
             </TableCell>
           </tr>
         </TableBody>

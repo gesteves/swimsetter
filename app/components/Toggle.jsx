@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Toggle({ label, description, onChange, checked = false }) {
+export default function Toggle({ label, description, onChange, checked = false }) {  
   return (
     <div className="flex items-center">
       <button

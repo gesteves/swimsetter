@@ -9,10 +9,12 @@ import Select from './Select';
 const PACE_MIN = 50;  // 0:50/100m
 const PACE_MAX = 150; // 2:30/100m
 
-const Set = forwardRef(function Set({ index, set, onUpdate, onRemove }, ref) {
+const Set = forwardRef(function Set({ index, set, onUpdate, onRemove, useYards }, ref) {
   const handleChange = (key, value) => {
     onUpdate({ ...set, [key]: parseInt(value, 10) });
   };
+
+  const unit = useYards ? 'yd' : 'm';
 
   const minuteOptions = [...Array(60).keys()].map((i) => (
     <option key={`min-${i}`} value={i}>
@@ -31,7 +33,7 @@ const Set = forwardRef(function Set({ index, set, onUpdate, onRemove }, ref) {
     const secPart = String(sec % 60).padStart(2, "0");
     return (
       <option key={sec} value={sec}>
-        {min}:{secPart}/100 m
+        {min}:{secPart}/100 {unit}
       </option>
     );
   });
@@ -64,7 +66,7 @@ const Set = forwardRef(function Set({ index, set, onUpdate, onRemove }, ref) {
               value={set.pace}
               onChange={(e) => handleChange("pace", e.target.value)}
               options={paceOptions}
-              aria-label="Pace per 100 meters"
+              aria-label={`Pace per 100 ${unit}`}
             />
           </div>
         </div>

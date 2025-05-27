@@ -1,8 +1,9 @@
-export const generateWorkoutSummary = (sets) => {
+export const generateWorkoutSummary = (sets, useYards = false) => {
   let hasNonZeroSets = false;
   let totalSeconds = 0;
   let totalDistance = 0;
   const lines = [];
+  const unit = useYards ? 'yd' : 'm';
   
   // Filter out zero duration sets and calculate totals
   const validSets = sets.filter(s => {
@@ -22,7 +23,7 @@ export const generateWorkoutSummary = (sets) => {
 
   validSets.forEach((set, index) => {
     const duration = `${set.minutes}:${String(set.seconds).padStart(2, "0")}`;
-    const pace = `${Math.floor(set.pace / 60)}:${String(set.pace % 60).padStart(2, "0")}/100m`;
+    const pace = `${Math.floor(set.pace / 60)}:${String(set.pace % 60).padStart(2, "0")}/100 ${unit}`;
     const label = `${duration} @ ${pace}`;
 
     if (currentGroup === label) {
@@ -61,9 +62,9 @@ export const generateWorkoutSummary = (sets) => {
   lines.push(`${totalTimeFormatted} total`);
   
   const avgPace = Math.round(totalSeconds / (totalDistance / 100));
-  const avgPaceFormatted = `${Math.floor(avgPace / 60)}:${String(avgPace % 60).padStart(2, "0")}/100 m`;
+  const avgPaceFormatted = `${Math.floor(avgPace / 60)}:${String(avgPace % 60).padStart(2, "0")}/100 ${unit}`;
   lines.push(`${avgPaceFormatted} avg. pace`);
-  lines.push(`${Math.round(totalDistance).toLocaleString()} m`);
+  lines.push(`${Math.round(totalDistance).toLocaleString()} ${unit}`);
 
   return {
     summary: lines.join("\n"),
