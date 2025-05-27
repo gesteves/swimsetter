@@ -48,12 +48,14 @@ const Set = forwardRef(function Set({ index, set, onUpdate, onRemove }, ref) {
               value={set.minutes}
               onChange={(e) => handleChange("minutes", e.target.value)}
               options={minuteOptions}
+              aria-label="Minutes"
             />
             <div className="grid grid-cols-1 flex-none">:</div>
             <Select
               value={set.seconds}
               onChange={(e) => handleChange("seconds", e.target.value)}
               options={secondOptions}
+              aria-label="Seconds"
             />
           </div>
           <div className="grid grid-cols-1 hidden sm:block">@</div>
@@ -62,6 +64,7 @@ const Set = forwardRef(function Set({ index, set, onUpdate, onRemove }, ref) {
               value={set.pace}
               onChange={(e) => handleChange("pace", e.target.value)}
               options={paceOptions}
+              aria-label="Pace per 100 meters"
             />
           </div>
         </div>
