@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from "react";
 import WorkoutSets from "./components/WorkoutSets";
-import WorkoutSummary from "./components/WorkoutSummary";
 import WorkoutStats from "./components/WorkoutStats";
 import ButtonCard from "./components/ButtonCard";
 import Intro from "./components/Intro";
@@ -77,9 +76,8 @@ export default function Home() {
               onClearWorkout={clearWorkout}
               lastSetRef={lastSetRef}
             />
-            <WorkoutStats stats={workoutData.stats} />
-            <WorkoutSummary 
-              summary={workoutData.summary} 
+            <WorkoutStats 
+              stats={workoutData.stats} 
               onCopy={() => navigator.clipboard.writeText(workoutData.summary)} 
             />
           </>
