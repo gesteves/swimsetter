@@ -8,6 +8,7 @@ import Intro from "./components/Intro";
 import { loadSets, saveSets, loadLastSet } from "./utils/storage";
 import { useWakeLock } from "./utils/wakeLock";
 import { generateWorkoutSummary } from "./utils/workoutSummary";
+import Preferences from "./components/Preferences";
 
 export default function Home() {
   const [sets, setSets] = useState([]);
@@ -67,6 +68,7 @@ export default function Home() {
     <main className="min-h-[100dvh] p-4 text-lg flex justify-center bg-blue-50 pb-[var(--bottom-padding)]">
       <div className="w-full max-w-lg space-y-3">
         {sets.length === 0 && <Intro />}
+        <Preferences />
         {sets.length > 0 && (
           <>
             <WorkoutSets

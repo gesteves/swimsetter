@@ -1,32 +1,40 @@
 "use client"
 
-import { useRef, useEffect } from 'react';
+import { useEffect, useRef } from 'react'
 
-export const useWakeLock = () => {
-  const wakeLockRef = useRef(null);
+export function useWakeLock() {
+  const wakeLockRef = useRef(null)
 
   const requestWakeLock = async () => {
+    if (!navigator.wakeLock) return
+
     try {
-      if ('wakeLock' in navigator) {
-        wakeLockRef.current = await navigator.wakeLock.request('screen');
-      }
+      wakeLockRef.current = await navigator.wakeLock.request('screen')
     } catch (err) {
-      console.log('Wake lock request failed:', err);
+      console.error('Failed to request wake lock:', err)
     }
-  };
+  }
+
+  const releaseWakeLock = () => {
+    if (wakeLockRef.current) {
+      wakeLockRef.current.release()
+      wakeLockRef.current = null
+    }
+  }
 
   useEffect(() => {
     const handleVisibilityChange = async () => {
-      if (document.visibilityState === "visible") {
-        await requestWakeLock();
+      if (document.visibilityState === 'visible' && wakeLockRef.current === null) {
+        await requestWakeLock()
       }
-    };
+    }
 
-    document.addEventListener("visibilitychange", handleVisibilityChange);
+    document.addEventListener('visibilitychange', handleVisibilityChange)
     return () => {
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-    };
-  }, []);
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+      releaseWakeLock()
+    }
+  }, [])
 
-  return { requestWakeLock };
-}; 
+  return { requestWakeLock, releaseWakeLock }
+} 
