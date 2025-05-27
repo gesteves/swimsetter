@@ -14,7 +14,17 @@ export default function WorkoutStats({ stats, onCopy }) {
   };
 
   return (
-    <Card>
+    <Card
+      footer={
+        <button
+          className="text-sm transition-colors text-blue-600 hover:text-blue-500"
+          onClick={handleCopy}
+        >
+          <FontAwesomeIcon icon={copied ? faClipboardCheck : faClipboard} className="mr-1" />
+          {copied ? "Copied to clipboard!" : "Copy to clipboard"}
+        </button>
+      }
+    >
       <Table>
         <TableHeader>
           <TableHeaderCell>Sets</TableHeaderCell>
@@ -39,15 +49,6 @@ export default function WorkoutStats({ stats, onCopy }) {
           </tr>
         </TableBody>
       </Table>
-      <div className="text-center border-t border-gray-300">
-        <button
-          className="px-3 py-4 text-sm transition-colors text-blue-600 hover:text-blue-500"
-          onClick={handleCopy}
-        >
-          <FontAwesomeIcon icon={copied ? faClipboardCheck : faClipboard} className="mr-1" />
-          {copied ? "Copied to clipboard!" : "Copy to clipboard"}
-        </button>
-      </div>
     </Card>
   );
 } 

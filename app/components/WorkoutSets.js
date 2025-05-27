@@ -6,37 +6,36 @@ import { Table, TableHeader, TableHeaderCell, TableBody } from './Table';
 
 export default function WorkoutSets({ sets, onUpdateSet, onRemoveSet, onClearWorkout, lastSetRef }) {
   return (
-    <Card>
+    <Card
+      footer={
+        <button
+          className="text-sm text-red-600 hover:text-red-500 transition-colors"
+          onClick={onClearWorkout}
+        >
+          Delete all sets
+        </button>
+      }
+    >
       <Table>
         <TableHeader>
-          <TableHeaderCell>Set</TableHeaderCell>
-          <TableHeaderCell>Duration & Pace</TableHeaderCell>
-          <TableHeaderCell>
-            <span className="sr-only">Remove</span>
-          </TableHeaderCell>
+          <TableHeaderCell>#</TableHeaderCell>
+          <TableHeaderCell>Duration</TableHeaderCell>
+          <TableHeaderCell>Pace</TableHeaderCell>
+          <TableHeaderCell>Distance</TableHeaderCell>
+          <TableHeaderCell></TableHeaderCell>
         </TableHeader>
         <TableBody>
-          {sets.map((set, i) => (
+          {sets.map((set, index) => (
             <Set
-              key={i}
-              index={i}
+              key={index}
               set={set}
-              onChange={(updated) => onUpdateSet(i, updated)}
-              onRemove={() => onRemoveSet(i)}
-              ref={i === sets.length - 1 ? lastSetRef : null}
+              onUpdate={(updatedSet) => onUpdateSet(index, updatedSet)}
+              onRemove={() => onRemoveSet(index)}
+              ref={index === sets.length - 1 ? lastSetRef : null}
             />
           ))}
         </TableBody>
       </Table>
-      <div className="text-center border-t border-gray-300">
-        <button
-          className="px-3 py-4 text-sm transition-colors text-red-600 hover:text-red-500"
-          onClick={onClearWorkout}
-        >
-          <FontAwesomeIcon icon={faTrash} className="mr-1" />
-          Delete all sets
-        </button>
-      </div>
     </Card>
   );
 } 
