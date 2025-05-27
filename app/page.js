@@ -22,7 +22,6 @@ export default function Home() {
   const wakeLockRef = useRef(null);
 
   const requestWakeLock = async () => {
-    if (wakeLockRef.current) return; // Don't request if we already have it
     try {
       if ('wakeLock' in navigator) {
         wakeLockRef.current = await navigator.wakeLock.request('screen');
