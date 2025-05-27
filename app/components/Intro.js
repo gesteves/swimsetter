@@ -9,7 +9,7 @@ export default function Intro() {
         <li><strong>Start a timer or stopwatch</strong> on your watch.</li>
         <li><strong>Swim!</strong></li>
         <li>Whenever you stop, <strong>tap “Add Set”</strong> and enter the time and pace of your last set.</li>
-        <li>When you’re done, <strong>enter the details</strong> into your workout log or Strava activity.</li>
+        <li>When you’re done, <strong>enter the details</strong> in your workout log or Strava activity.</li>
       </ul>
     </Card>
   );
