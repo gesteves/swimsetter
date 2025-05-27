@@ -12,6 +12,7 @@ export default function WorkoutSets({ sets, onUpdateSet, onRemoveSet, onClearWor
           className="text-sm text-red-600 hover:text-red-500 transition-colors"
           onClick={onClearWorkout}
         >
+          <FontAwesomeIcon icon={faTrash} className="mr-1" />
           Delete all sets
         </button>
       }
