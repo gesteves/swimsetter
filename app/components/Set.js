@@ -6,9 +6,9 @@ import { faCircleMinus } from '@fortawesome/free-solid-svg-icons';
 import { TableCell } from './Table';
 import Select from './Select';
 
-const Set = forwardRef(function Set({ index, set, onChange, onRemove }, ref) {
+const Set = forwardRef(function Set({ index, set, onUpdate, onRemove }, ref) {
   const handleChange = (key, value) => {
-    onChange({ ...set, [key]: parseInt(value, 10) });
+    onUpdate({ ...set, [key]: parseInt(value, 10) });
   };
 
   const minuteOptions = [...Array(60).keys()].map((i) => (
