@@ -18,16 +18,15 @@ export default function WorkoutSets({ sets, onUpdateSet, onRemoveSet, onClearWor
     >
       <Table>
         <TableHeader>
-          <TableHeaderCell>#</TableHeaderCell>
-          <TableHeaderCell>Duration</TableHeaderCell>
-          <TableHeaderCell>Pace</TableHeaderCell>
-          <TableHeaderCell>Distance</TableHeaderCell>
-          <TableHeaderCell></TableHeaderCell>
+          <TableHeaderCell>Set</TableHeaderCell>
+          <TableHeaderCell>Duration & Pace</TableHeaderCell>
+          <TableHeaderCell><span className="sr-only">Remove</span></TableHeaderCell>
         </TableHeader>
         <TableBody>
           {sets.map((set, index) => (
             <Set
               key={index}
+              index={index}
               set={set}
               onUpdate={(updatedSet) => onUpdateSet(index, updatedSet)}
               onRemove={() => onRemoveSet(index)}
