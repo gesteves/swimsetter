@@ -6,14 +6,14 @@ describe('Toggle', () => {
     const { getByRole } = render(<Toggle onChange={() => {}} />)
     const toggle = getByRole('switch')
     expect(toggle).toHaveAttribute('aria-checked', 'false')
-    expect(toggle).toHaveClass('bg-gray-200')
+    expect(toggle.querySelector('div')).toHaveClass('bg-gray-200')
   })
 
   it('renders toggle button with checked state', () => {
     const { getByRole } = render(<Toggle onChange={() => {}} checked={true} />)
     const toggle = getByRole('switch')
     expect(toggle).toHaveAttribute('aria-checked', 'true')
-    expect(toggle).toHaveClass('bg-indigo-600')
+    expect(toggle.querySelector('div')).toHaveClass('bg-indigo-600')
   })
 
   it('calls onChange with toggled value when clicked', () => {
@@ -38,5 +38,23 @@ describe('Toggle', () => {
     const { getByRole } = render(<Toggle onChange={() => {}} label="Annual billing" />)
     const toggle = getByRole('switch')
     expect(toggle).toHaveAttribute('aria-labelledby', 'annual-billing-label')
+  })
+
+  it('uses aria-label when no label is provided', () => {
+    const { getByRole } = render(<Toggle onChange={() => {}} />)
+    const toggle = getByRole('switch')
+    expect(toggle).toHaveAttribute('aria-label', 'Toggle switch')
+  })
+
+  it('does not use aria-label when label is provided', () => {
+    const { getByRole } = render(<Toggle onChange={() => {}} label="Annual billing" />)
+    const toggle = getByRole('switch')
+    expect(toggle).not.toHaveAttribute('aria-label')
+  })
+
+  it('marks the visual switch as aria-hidden', () => {
+    const { container } = render(<Toggle onChange={() => {}} />)
+    const visualSwitch = container.querySelector('div[aria-hidden="true"]')
+    expect(visualSwitch).toBeInTheDocument()
   })
 }) 
