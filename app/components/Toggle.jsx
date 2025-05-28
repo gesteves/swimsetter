@@ -27,7 +27,7 @@ export default function Toggle({ label, description, onChange, checked = false }
         />
       </div>
       <span
-        className="ml-3"
+        className="ml-3 text-sm"
         id={labelId}
       >
         <span className="text-gray-700">{label}</span>
