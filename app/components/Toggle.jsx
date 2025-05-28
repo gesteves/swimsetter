@@ -1,7 +1,8 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 export default function Toggle({ label, description, onChange, checked = false }) {  
-  const labelId = `${label?.toLowerCase().replace(/\s+/g, '-')}-label`
+  const labelId = `${label.toLowerCase().replace(/\s+/g, '-')}-label`
 
   return (
     <button
@@ -9,7 +10,6 @@ export default function Toggle({ label, description, onChange, checked = false }
       role="switch"
       aria-checked={checked}
       aria-labelledby={labelId}
-      aria-label={label ? undefined : 'Toggle switch'}
       onClick={() => onChange(!checked)}
       className="flex items-center w-full text-left focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 rounded"
     >
@@ -26,15 +26,20 @@ export default function Toggle({ label, description, onChange, checked = false }
           }`}
         />
       </div>
-      {(label || description) && (
-        <span
-          className="ml-3"
-          id={labelId}
-        >
-          {label && <span className="text-gray-700">{label}</span>}
-          {description && <span className="text-gray-500"> {description}</span>}
-        </span>
-      )}
+      <span
+        className="ml-3"
+        id={labelId}
+      >
+        <span className="text-gray-700">{label}</span>
+        {description && <span className="text-gray-500"> {description}</span>}
+      </span>
     </button>
   )
+}
+
+Toggle.propTypes = {
+  label: PropTypes.string.isRequired,
+  description: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  checked: PropTypes.bool
 } 
