@@ -1,65 +1,62 @@
+// utils/wakeLock.js
 "use client"
 
-import { useEffect, useRef, useState } from 'react'
+import { useState, useEffect, useCallback } from "react";
+
+let wakeLock = null;
 
 export function useWakeLock() {
-  const wakeLockRef = useRef(null)
-  const [wakeLockActive, setWakeLockActive] = useState(false)
-  const [wakeLockRequested, setWakeLockRequested] = useState(false)
+  const [wakeLockRequested, setWakeLockRequested] = useState(false);
 
-  const requestWakeLock = async () => {
-    if (!navigator.wakeLock) return
-
+  const requestWakeLock = useCallback(async () => {
     try {
-      wakeLockRef.current = await navigator.wakeLock.request('screen')
-      setWakeLockActive(true)
+      wakeLock = await navigator.wakeLock.request("screen");
+      wakeLock.addEventListener("release", () => {
+        wakeLock = null;
+      });
     } catch (err) {
-      console.error('Failed to request wake lock:', err)
-      setWakeLockActive(false)
+      setWakeLockRequested(false);
     }
-  }
+  }, []);
 
-  const releaseWakeLock = () => {
-    if (wakeLockRef.current) {
-      wakeLockRef.current.release()
-      wakeLockRef.current = null
-      setWakeLockActive(false)
+  const releaseWakeLock = useCallback(() => {
+    if (wakeLock !== null) {
+      wakeLock.release();
+      wakeLock = null;
     }
-  }
+  }, []);
+
+  useEffect(() => {
+    if (wakeLockRequested) {
+      requestWakeLock();
+    } else {
+      releaseWakeLock();
+    }
+  }, [wakeLockRequested, requestWakeLock, releaseWakeLock]);
 
   useEffect(() => {
     const handleVisibilityChange = async () => {
-      if (
-        document.visibilityState === 'visible' &&
-        wakeLockRequested &&
-        wakeLockRef.current === null
-      ) {
-        await requestWakeLock()
+      if (wakeLockRequested && document.visibilityState === "visible") {
+        try {
+          wakeLock = await navigator.wakeLock.request("screen");
+          wakeLock.addEventListener("release", () => {
+            wakeLock = null;
+          });
+        } catch {
+          setWakeLockRequested(false);
+        }
       }
-    }
+    };
 
-    document.addEventListener('visibilitychange', handleVisibilityChange)
+    document.addEventListener("visibilitychange", handleVisibilityChange);
     return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange)
-      releaseWakeLock()
-    }
-  }, [wakeLockRequested])
-
-  // When user toggles, request or release the lock
-  useEffect(() => {
-    if (wakeLockRequested) {
-      requestWakeLock()
-    } else {
-      releaseWakeLock()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [wakeLockRequested])
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [wakeLockRequested]);
 
   return {
-    requestWakeLock,
-    releaseWakeLock,
-    wakeLockActive,
     wakeLockRequested,
     setWakeLockRequested,
-  }
-} 
+    requestWakeLock,
+  };
+}

@@ -6,7 +6,6 @@ import WorkoutStats from "./components/WorkoutStats";
 import ButtonCard from "./components/ButtonCard";
 import Intro from "./components/Intro";
 import { loadSets, saveSets, loadLastSet, loadPreferences } from "./utils/storage";
-import { useWakeLock } from "./utils/wakeLock";
 import { generateWorkoutSummary } from "./utils/workoutSummary";
 import Preferences from "./components/Preferences";
 
@@ -16,7 +15,6 @@ export default function Home() {
   const buttonCardRef = useRef(null);
   const lastSetRef = useRef(null);
   const shouldScrollRef = useRef(false);
-  const { requestWakeLock } = useWakeLock();
 
   useEffect(() => {
     const { useYards: savedUseYards } = loadPreferences();
@@ -55,11 +53,10 @@ export default function Home() {
     setSets(newSets);
   };
 
-  const addSet = async () => {
+  const addSet = () => {
     const lastSet = loadLastSet();
     shouldScrollRef.current = true;
     setSets([...sets, lastSet]);
-    await requestWakeLock();
   };
 
   const removeSet = (index) => {
