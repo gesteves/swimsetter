@@ -26,7 +26,7 @@ export default function WorkoutStats({ stats, onCopy, useYards }) {
         </button>
       }
     >
-      <div className="flex flex-col sm:flex-row justify-between items-stretch gap-2 rounded-xl p-4">
+      <div className="flex flex-col sm:flex-row justify-between items-stretch gap-2">
         <Stat
           icon={faClock}
           label="Total Time"
