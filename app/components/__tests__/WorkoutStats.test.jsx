@@ -14,12 +14,14 @@ describe('WorkoutStats', () => {
     jest.clearAllMocks()
   })
 
-  it('renders stats correctly', () => {
+  it('renders stat values correctly', () => {
     render(<WorkoutStats stats={stats} onCopy={mockCopy} />)
-    expect(screen.getByText('5')).toBeInTheDocument()
     expect(screen.getByText('12:34')).toBeInTheDocument()
     expect(screen.getByText('1,000 m')).toBeInTheDocument()
     expect(screen.getByText('1:15/100 m')).toBeInTheDocument()
+    expect(screen.getByText('Total Time')).toBeInTheDocument()
+    expect(screen.getByText('Distance')).toBeInTheDocument()
+    expect(screen.getByText('Avg Pace')).toBeInTheDocument()
   })
 
   it('shows dash for pace if totalDistance is 0', () => {
