@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import WorkoutSets from "./components/WorkoutSets";
 import WorkoutStats from "./components/WorkoutStats";
-import ButtonCard from "./components/ButtonCard";
+import ButtonBar from './components/ButtonBar';
 import Intro from "./components/Intro";
 import { loadSets, saveSets, loadLastSet, loadPreferences } from "./utils/storage";
 import { generateWorkoutSummary } from "./utils/workoutSummary";
@@ -93,7 +93,7 @@ export default function Home() {
             />
           </>
         )}
-        <ButtonCard ref={buttonCardRef} onAddSet={addSet} />
+        <ButtonBar ref={buttonCardRef} onAddSet={addSet} />
       </div>
     </main>
   );
