@@ -1,7 +1,7 @@
 import Card from './Card';
-import { Table, TableHeader, TableHeaderCell, TableBody, TableCell } from './Table';
+import Stat from './Stat';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClipboard, faClipboardCheck } from '@fortawesome/free-solid-svg-icons';
+import { faClipboard, faClipboardCheck, faClock, faRuler, faStopwatch } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 
 export default function WorkoutStats({ stats, onCopy, useYards }) {
@@ -26,30 +26,23 @@ export default function WorkoutStats({ stats, onCopy, useYards }) {
         </button>
       }
     >
-      <Table>
-        <TableHeader>
-          <TableHeaderCell>Sets</TableHeaderCell>
-          <TableHeaderCell>Time</TableHeaderCell>
-          <TableHeaderCell>Distance</TableHeaderCell>
-          <TableHeaderCell>Pace</TableHeaderCell>
-        </TableHeader>
-        <TableBody>
-          <tr>
-            <TableCell>
-              {stats.setCount}
-            </TableCell>
-            <TableCell>
-              {stats.totalTime}
-            </TableCell>
-            <TableCell>
-              {stats.totalDistance.toLocaleString()} {unit}
-            </TableCell>
-            <TableCell>
-              {stats.totalDistance > 0 ? stats.avgPace.replace(/m$/, unit) : "—"}
-            </TableCell>
-          </tr>
-        </TableBody>
-      </Table>
+      <div className="flex flex-col sm:flex-row justify-between items-stretch gap-2 rounded-xl p-4">
+        <Stat
+          icon={faClock}
+          label="Total Time"
+          value={stats.totalTime}
+        />
+        <Stat
+          icon={faRuler}
+          label="Distance"
+          value={`${stats.totalDistance.toLocaleString()} ${unit}`}
+        />
+        <Stat
+          icon={faStopwatch}
+          label="Avg Pace"
+          value={stats.totalDistance > 0 ? stats.avgPace.replace(/m$/, unit) : "—"}
+        />
+      </div>
     </Card>
   );
 } 
