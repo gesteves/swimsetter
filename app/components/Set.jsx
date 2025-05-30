@@ -1,8 +1,8 @@
 "use client"
 
-import { forwardRef } from "react";
+import { forwardRef, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleMinus } from '@fortawesome/free-solid-svg-icons';
+import { faCircleMinus, faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { TableCell } from './Table';
 import Select from './Select';
 
@@ -10,6 +10,8 @@ const PACE_MIN = 50;  // 0:50/100m
 const PACE_MAX = 150; // 2:30/100m
 
 const Set = forwardRef(function Set({ index, set, onUpdate, onRemove, useYards }, ref) {
+  const [confirming, setConfirming] = useState(false);
+
   const handleChange = (key, value) => {
     onUpdate({ ...set, [key]: parseInt(value, 10) });
   };
@@ -37,6 +39,15 @@ const Set = forwardRef(function Set({ index, set, onUpdate, onRemove, useYards }
       </option>
     );
   });
+
+  const handleRemoveClick = () => {
+    if (confirming) {
+      onRemove();
+    } else {
+      setConfirming(true);
+      setTimeout(() => setConfirming(false), 2000);
+    }
+  };
 
   return (
     <tr ref={ref}>
@@ -73,11 +84,11 @@ const Set = forwardRef(function Set({ index, set, onUpdate, onRemove, useYards }
       </TableCell>
       <TableCell className="p-0 text-right">
         <button
-          aria-label={`Remove set ${index + 1}`}
-          onClick={onRemove}
+          aria-label={confirming ? `Confirm remove set ${index + 1}` : `Remove set ${index + 1}`}
+          onClick={handleRemoveClick}
           className="cursor-pointer p-4 text-red-600 hover:text-red-500"
         >
-          <FontAwesomeIcon icon={faCircleMinus} size="lg" />
+          <FontAwesomeIcon icon={confirming ? faCircleCheck : faCircleMinus} size="lg" />
         </button>
       </TableCell>
     </tr>
