@@ -15,7 +15,17 @@ export const generateWorkoutSummary = (sets, useYards = false) => {
     return true;
   });
 
-  if (!hasNonZeroSets) return "";
+  if (!hasNonZeroSets) {
+    return {
+      summary: "",
+      stats: {
+        totalTime: "0:00",
+        totalDistance: 0,
+        avgPace: "0:00/100 " + unit,
+        setCount: sets.length
+      }
+    };
+  }
 
   // Group consecutive sets
   let currentGroup = null;
@@ -62,8 +72,8 @@ export const generateWorkoutSummary = (sets, useYards = false) => {
   lines.push(`${totalTimeFormatted} total`);
   
   const avgPace = Math.round(totalSeconds / (totalDistance / 100));
-  const avgPaceFormatted = `${Math.floor(avgPace / 60)}:${String(avgPace % 60).padStart(2, "0")}/100 ${unit}`;
-  lines.push(`${avgPaceFormatted} avg. pace`);
+  const avgPaceFormatted = `${Math.floor(avgPace / 60)}:${String(avgPace % 60).padStart(2, "0")}/100`;
+  lines.push(`${avgPaceFormatted} ${unit} avg. pace`);
   lines.push(`${Math.round(totalDistance).toLocaleString()} ${unit}`);
 
   return {

@@ -40,7 +40,7 @@ export default function WorkoutStats({ stats, onCopy, useYards }) {
         <Stat
           icon={faStopwatch}
           label="Avg Pace"
-          value={stats.totalDistance > 0 ? stats.avgPace.replace(/m$/, unit) : "—"}
+          value={stats.totalDistance > 0 ? `${stats.avgPace} ${unit}` : "—"}
         />
       </div>
     </Card>
