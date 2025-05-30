@@ -64,10 +64,9 @@ export default function Home() {
   };
 
   const clearWorkout = () => {
-    if (confirm("Are you sure you want to empty the entire workout? This cannot be undone.")) {
-      setSets([]);
-    }
+    setSets([]);
   };
+
 
   const workoutData = generateWorkoutSummary(sets, useYards);
 

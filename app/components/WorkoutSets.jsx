@@ -1,14 +1,26 @@
+import { useState } from 'react';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import Set from './Set';
 import Card from './Card';
 import { Table, TableHeader, TableHeaderCell, TableBody } from './Table';
 
 export default function WorkoutSets({ sets, onUpdateSet, onRemoveSet, onClearWorkout, lastSetRef, useYards }) {
+  const [confirmClear, setConfirmClear] = useState(false);
+
+  const handleClearClick = () => {
+    if (!confirmClear) {
+      setConfirmClear(true);
+      setTimeout(() => setConfirmClear(false), 2000);
+    } else {
+      onClearWorkout();
+    }
+  };
+
   return (
     <Card
       footerButton={{
-        label: "Delete all sets",
-        onClick: onClearWorkout,
+        label: confirmClear ? "Are you sure?" : "Delete all sets",
+        onClick: handleClearClick,
         icon: faTrash,
         variant: "danger",
       }}

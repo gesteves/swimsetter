@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import WorkoutSets from '../WorkoutSets';
 
 const sets = [
@@ -13,6 +13,12 @@ describe('WorkoutSets', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+    jest.useFakeTimers();
+  });
+
+  afterEach(() => {
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
   });
 
   it('renders all sets', () => {
@@ -42,7 +48,7 @@ describe('WorkoutSets', () => {
     expect(mockUpdate).toHaveBeenCalledWith(0, { ...sets[0], minutes: 5 });
   });
 
-  it('requires confirmation before onRemoveSet is called', () => {
+  it('calls onRemoveSet when remove button is confirmed', () => {
     render(
       <WorkoutSets
         sets={sets}
@@ -52,18 +58,16 @@ describe('WorkoutSets', () => {
       />
     );
 
-    // First click triggers confirmation state
-    let removeButton = screen.getByRole('button', { name: /remove set 1/i });
+    const removeButton = screen.getByRole('button', { name: /remove set 1/i });
     fireEvent.click(removeButton);
     expect(mockRemove).not.toHaveBeenCalled();
 
-    // Second click confirms removal
-    removeButton = screen.getByRole('button', { name: /confirm remove set 1/i });
-    fireEvent.click(removeButton);
+    const confirmButton = screen.getByRole('button', { name: /confirm remove set 1/i });
+    fireEvent.click(confirmButton);
     expect(mockRemove).toHaveBeenCalledWith(0);
   });
 
-  it('calls onClearWorkout when delete all is clicked', () => {
+  it('requires confirmation before calling onClearWorkout', () => {
     render(
       <WorkoutSets
         sets={sets}
@@ -72,8 +76,34 @@ describe('WorkoutSets', () => {
         onClearWorkout={mockClear}
       />
     );
-    const deleteAllButton = screen.getByRole('button', { name: /delete all sets/i });
-    fireEvent.click(deleteAllButton);
+
+    const deleteButton = screen.getByRole('button', { name: /delete all sets/i });
+    fireEvent.click(deleteButton);
+    expect(mockClear).not.toHaveBeenCalled();
+
+    const confirmButton = screen.getByRole('button', { name: /are you sure/i });
+    fireEvent.click(confirmButton);
     expect(mockClear).toHaveBeenCalled();
+  });
+
+  it('resets confirmation after timeout if not confirmed', () => {
+    render(
+      <WorkoutSets
+        sets={sets}
+        onUpdateSet={mockUpdate}
+        onRemoveSet={mockRemove}
+        onClearWorkout={mockClear}
+      />
+    );
+
+    const deleteButton = screen.getByRole('button', { name: /delete all sets/i });
+    fireEvent.click(deleteButton);
+    expect(screen.getByRole('button', { name: /are you sure/i })).toBeInTheDocument();
+
+    act(() => {
+      jest.advanceTimersByTime(2000);
+    });
+
+    expect(screen.getByRole('button', { name: /delete all sets/i })).toBeInTheDocument();
   });
 });
