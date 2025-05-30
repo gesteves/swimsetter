@@ -71,11 +71,11 @@ const Set = forwardRef(function Set({ index, set, onUpdate, onRemove, useYards }
           </div>
         </div>
       </TableCell>
-      <TableCell className="text-right">
+      <TableCell className="p-0 text-right">
         <button
           aria-label={`Remove set ${index + 1}`}
           onClick={onRemove}
-          className="cursor-pointer text-red-600 hover:text-red-500"
+          className="cursor-pointer p-4 text-red-600 hover:text-red-500"
         >
           <FontAwesomeIcon icon={faCircleMinus} size="lg" />
         </button>
