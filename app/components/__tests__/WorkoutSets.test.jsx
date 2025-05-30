@@ -17,7 +17,9 @@ describe('WorkoutSets', () => {
   });
 
   afterEach(() => {
-    jest.runOnlyPendingTimers();
+    act(() => {
+      jest.runOnlyPendingTimers();
+    });
     jest.useRealTimers();
   });
 
@@ -61,10 +63,17 @@ describe('WorkoutSets', () => {
     );
 
     const removeButton = screen.getAllByRole('button')[0];
-    fireEvent.click(removeButton);
+
+    act(() => {
+      fireEvent.click(removeButton); // confirmation step
+    });
+
     expect(mockRemove).not.toHaveBeenCalled();
 
-    fireEvent.click(removeButton);
+    act(() => {
+      fireEvent.click(removeButton); // confirmation click
+    });
+
     expect(mockRemove).toHaveBeenCalledWith(0);
   });
 
@@ -79,11 +88,19 @@ describe('WorkoutSets', () => {
     );
 
     const deleteButton = screen.getByRole('button', { name: /delete all sets/i });
-    fireEvent.click(deleteButton);
+
+    act(() => {
+      fireEvent.click(deleteButton);
+    });
+
     expect(mockClear).not.toHaveBeenCalled();
 
     const confirmButton = screen.getByRole('button', { name: /are you sure/i });
-    fireEvent.click(confirmButton);
+
+    act(() => {
+      fireEvent.click(confirmButton);
+    });
+
     expect(mockClear).toHaveBeenCalled();
   });
 
@@ -98,7 +115,11 @@ describe('WorkoutSets', () => {
     );
 
     const deleteButton = screen.getByRole('button', { name: /delete all sets/i });
-    fireEvent.click(deleteButton);
+
+    act(() => {
+      fireEvent.click(deleteButton);
+    });
+
     expect(screen.getByRole('button', { name: /are you sure/i })).toBeInTheDocument();
 
     act(() => {
