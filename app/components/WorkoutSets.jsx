@@ -7,27 +7,18 @@ import { Table, TableHeader, TableHeaderCell, TableBody } from './Table';
 export default function WorkoutSets({ sets, onUpdateSet, onRemoveSet, onClearWorkout, lastSetRef, useYards }) {
   const [confirmClear, setConfirmClear] = useState(false);
 
-  const handleClearClick = () => {
-    if (!confirmClear) {
-      setConfirmClear(true);
-      setTimeout(() => setConfirmClear(false), 2000);
-    } else {
-      onClearWorkout();
-    }
-  };
-
   return (
     <Card
       footerButton={{
-        label: confirmDelete ? "Are you sure?" : "Delete all sets",
+        label: confirmClear ? "Are you sure?" : "Delete all sets",
         onClick: () => {
-          if (confirmDelete) onClearWorkout();
+          if (confirmClear) onClearWorkout();
           else {
-            setConfirmDelete(true);
-            setTimeout(() => setConfirmDelete(false), 2000);
+            setConfirmClear(true);
+            setTimeout(() => setConfirmClear(false), 2000);
           }
         },
-        icon: confirmDelete ? faTriangleExclamation : faTrash,
+        icon: confirmClear ? faTriangleExclamation : faTrash,
         variant: "danger",
       }}
     >
