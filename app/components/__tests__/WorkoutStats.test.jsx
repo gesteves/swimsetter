@@ -21,7 +21,7 @@ describe('WorkoutStats', () => {
     expect(screen.getByText('1:15/100 m')).toBeInTheDocument()
     expect(screen.getByText('Total Time')).toBeInTheDocument()
     expect(screen.getByText('Distance')).toBeInTheDocument()
-    expect(screen.getByText('Avg Pace')).toBeInTheDocument()
+    expect(screen.getByText('Average Pace')).toBeInTheDocument()
   })
 
   it('shows dash for pace if totalDistance is 0', () => {
