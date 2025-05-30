@@ -51,7 +51,7 @@ const Set = forwardRef(function Set({ index, set, onUpdate, onRemove, useYards, 
   return (
     <Component ref={ref} className="px-6 py-4">
       <div className="flex items-center gap-4">
-        <div className="text-sm font-medium text-gray-700 dark:text-gray-200">{index + 1}</div>
+        <div className="text-sm font-medium text-gray-700 dark:text-gray-200 w-6">{index + 1}</div>
         <div className="flex flex-col sm:flex-row gap-4 flex-1">
           <div className="flex flex-col flex-1">
             <div className="flex items-center gap-1">
