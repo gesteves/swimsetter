@@ -6,7 +6,7 @@ describe('WorkoutStats', () => {
     setCount: 5,
     totalTime: '12:34',
     totalDistance: 1000,
-    avgPace: '1:15/100 m',
+    avgPace: '1:15/100',
   }
   const mockCopy = jest.fn()
 
