@@ -7,15 +7,12 @@ import { Table, TableHeader, TableHeaderCell, TableBody } from './Table';
 export default function WorkoutSets({ sets, onUpdateSet, onRemoveSet, onClearWorkout, lastSetRef, useYards }) {
   return (
     <Card
-      footer={
-        <button
-          className="text-sm text-red-600 hover:text-red-500 transition-colors"
-          onClick={onClearWorkout}
-        >
-          <FontAwesomeIcon icon={faTrash} className="mr-1" />
-          Delete all sets
-        </button>
-      }
+      footerButton={{
+        label: "Delete all sets",
+        onClick: onClearWorkout,
+        icon: faTrash,
+        variant: "danger",
+      }}
     >
       <Table>
         <TableHeader>
@@ -39,4 +36,4 @@ export default function WorkoutSets({ sets, onUpdateSet, onRemoveSet, onClearWor
       </Table>
     </Card>
   );
-} 
+}

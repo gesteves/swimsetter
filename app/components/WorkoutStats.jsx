@@ -16,15 +16,11 @@ export default function WorkoutStats({ stats, onCopy, useYards }) {
 
   return (
     <Card
-      footer={
-        <button
-          className="text-sm transition-colors text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300"
-          onClick={handleCopy}
-        >
-          <FontAwesomeIcon icon={copied ? faClipboardCheck : faClipboard} className="mr-1" />
-          {copied ? "Copied to clipboard!" : "Copy to clipboard"}
-        </button>
-      }
+      footerButton={{
+        label: copied ? "Copied to clipboard!" : "Copy to clipboard",
+        onClick: handleCopy,
+        icon: copied ? faClipboardCheck : faClipboard,
+      }}
     >
       <div className="flex flex-row justify-between items-stretch gap-1 sm:gap-2">
         <Stat
@@ -45,4 +41,4 @@ export default function WorkoutStats({ stats, onCopy, useYards }) {
       </div>
     </Card>
   );
-} 
+}
