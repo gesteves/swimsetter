@@ -5,7 +5,7 @@ describe('Set component', () => {
   const mockSet = {
     minutes: 1,
     seconds: 30,
-    pace: 68
+    pace: 68,
   };
   const mockOnUpdate = jest.fn();
   const mockOnRemove = jest.fn();
@@ -16,7 +16,9 @@ describe('Set component', () => {
   });
 
   afterEach(() => {
-    jest.runOnlyPendingTimers();
+    act(() => {
+      jest.runOnlyPendingTimers();
+    });
     jest.useRealTimers();
   });
 
@@ -46,14 +48,9 @@ describe('Set component', () => {
       </ul>
     );
 
-    const minutesSelect = screen.getByRole('combobox', { name: /minutes/i });
-    expect(minutesSelect).toHaveValue('1');
-
-    const secondsSelect = screen.getByRole('combobox', { name: /seconds/i });
-    expect(secondsSelect).toHaveValue('30');
-
-    const paceSelect = screen.getByRole('combobox', { name: /pace/i });
-    expect(paceSelect).toHaveValue('68');
+    expect(screen.getByRole('combobox', { name: /minutes/i })).toHaveValue('1');
+    expect(screen.getByRole('combobox', { name: /seconds/i })).toHaveValue('30');
+    expect(screen.getByRole('combobox', { name: /pace/i })).toHaveValue('68');
   });
 
   it('calls onUpdate when time is changed', () => {
@@ -68,12 +65,14 @@ describe('Set component', () => {
       </ul>
     );
 
-    const minutesSelect = screen.getByRole('combobox', { name: /minutes/i });
-    fireEvent.change(minutesSelect, { target: { value: '2' } });
+    fireEvent.change(screen.getByRole('combobox', { name: /minutes/i }), {
+      target: { value: '2' },
+    });
     expect(mockOnUpdate).toHaveBeenCalledWith({ ...mockSet, minutes: 2 });
 
-    const secondsSelect = screen.getByRole('combobox', { name: /seconds/i });
-    fireEvent.change(secondsSelect, { target: { value: '45' } });
+    fireEvent.change(screen.getByRole('combobox', { name: /seconds/i }), {
+      target: { value: '45' },
+    });
     expect(mockOnUpdate).toHaveBeenCalledWith({ ...mockSet, seconds: 45 });
   });
 
@@ -89,8 +88,9 @@ describe('Set component', () => {
       </ul>
     );
 
-    const paceSelect = screen.getByRole('combobox', { name: /pace/i });
-    fireEvent.change(paceSelect, { target: { value: '75' } });
+    fireEvent.change(screen.getByRole('combobox', { name: /pace/i }), {
+      target: { value: '75' },
+    });
     expect(mockOnUpdate).toHaveBeenCalledWith({ ...mockSet, pace: 75 });
   });
 
@@ -107,10 +107,14 @@ describe('Set component', () => {
     );
 
     const button = screen.getByRole('button');
-    fireEvent.click(button);
+    act(() => {
+      fireEvent.click(button);
+    });
     expect(mockOnRemove).not.toHaveBeenCalled();
 
-    fireEvent.click(button);
+    act(() => {
+      fireEvent.click(button);
+    });
     expect(mockOnRemove).toHaveBeenCalled();
   });
 
@@ -127,13 +131,19 @@ describe('Set component', () => {
     );
 
     const button = screen.getByRole('button');
-    fireEvent.click(button); // trigger confirmation state
 
     act(() => {
-      jest.advanceTimersByTime(2000); // expire confirmation
+      fireEvent.click(button);
     });
 
-    fireEvent.click(button); // first click again
+    act(() => {
+      jest.advanceTimersByTime(2000);
+    });
+
+    act(() => {
+      fireEvent.click(button);
+    });
+
     expect(mockOnRemove).not.toHaveBeenCalled();
   });
 
