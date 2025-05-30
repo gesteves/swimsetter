@@ -2,7 +2,7 @@
 
 import { forwardRef, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleMinus, faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
+import { faCircleMinus, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { TableCell } from './Table';
 import Select from './Select';
 
@@ -88,7 +88,7 @@ const Set = forwardRef(function Set({ index, set, onUpdate, onRemove, useYards }
           onClick={handleRemoveClick}
           className="cursor-pointer p-4 text-red-600 hover:text-red-500"
         >
-          <FontAwesomeIcon icon={confirming ? faCircleQuestion : faCircleMinus} size="lg" />
+          <FontAwesomeIcon icon={confirming ? faTriangleExclamation : faCircleMinus} size="lg" />
         </button>
       </TableCell>
     </tr>

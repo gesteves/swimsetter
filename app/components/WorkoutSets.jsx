@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import Set from './Set';
 import Card from './Card';
 import { Table, TableHeader, TableHeaderCell, TableBody } from './Table';
@@ -19,9 +19,15 @@ export default function WorkoutSets({ sets, onUpdateSet, onRemoveSet, onClearWor
   return (
     <Card
       footerButton={{
-        label: confirmClear ? "Are you sure?" : "Delete all sets",
-        onClick: handleClearClick,
-        icon: faTrash,
+        label: confirmDelete ? "Are you sure?" : "Delete all sets",
+        onClick: () => {
+          if (confirmDelete) onClearWorkout();
+          else {
+            setConfirmDelete(true);
+            setTimeout(() => setConfirmDelete(false), 2000);
+          }
+        },
+        icon: confirmDelete ? faTriangleExclamation : faTrash,
         variant: "danger",
       }}
     >
