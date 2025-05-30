@@ -77,7 +77,7 @@ const Set = forwardRef(function Set({ index, set, onUpdate, onRemove, useYards }
           onClick={onRemove}
           className="text-red-600 hover:text-red-500 hover:underline"
         >
-          <FontAwesomeIcon icon={faCircleMinus} />
+          <FontAwesomeIcon icon={faCircleMinus} size="lg" />
         </button>
       </TableCell>
     </tr>
