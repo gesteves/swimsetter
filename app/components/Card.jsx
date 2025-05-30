@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 export default function Card({ children, footer, footerButton, className = "" }) {
   const variantClasses = {
     default: "text-blue-600 hover:text-blue-500",
@@ -19,7 +21,7 @@ export default function Card({ children, footer, footerButton, className = "" })
                 variantClasses[footerButton.variant || "default"]
               }`}
             >
-              {footerButton.icon && <footerButton.icon className="mr-1" />}
+              {footerButton.icon && <FontAwesomeIcon icon={footerButton.icon} className="mr-1" />}
               {footerButton.label}
             </button>
           )}
