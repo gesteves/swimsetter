@@ -73,7 +73,7 @@ export const generateWorkoutSummary = (sets, useYards = false) => {
   
   const avgPace = Math.round(totalSeconds / (totalDistance / 100));
   const avgPaceFormatted = `${Math.floor(avgPace / 60)}:${String(avgPace % 60).padStart(2, "0")}/100`;
-  lines.push(`${avgPaceFormatted} ${unit} avg. pace`);
+  lines.push(`${avgPaceFormatted} ${unit} average pace`);
   lines.push(`${Math.round(totalDistance).toLocaleString()} ${unit}`);
 
   return {

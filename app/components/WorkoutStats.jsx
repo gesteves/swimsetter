@@ -35,7 +35,7 @@ export default function WorkoutStats({ stats, onCopy, useYards }) {
         />
         <Stat
           icon={faStopwatch}
-          label="Avg Pace"
+          label="Average Pace"
           value={stats.totalDistance > 0 ? `${stats.avgPace} ${unit}` : "—"}
         />
       </div>
