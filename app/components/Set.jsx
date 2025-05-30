@@ -75,7 +75,7 @@ const Set = forwardRef(function Set({ index, set, onUpdate, onRemove, useYards }
         <button
           aria-label={`Remove set ${index + 1}`}
           onClick={onRemove}
-          className="text-red-600 hover:text-red-500 hover:underline"
+          className="cursor-pointer text-red-600 hover:text-red-500"
         >
           <FontAwesomeIcon icon={faCircleMinus} size="lg" />
         </button>

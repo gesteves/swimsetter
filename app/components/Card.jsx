@@ -17,7 +17,7 @@ export default function Card({ children, footer, footerButton, className = "" })
           ) : (
             <button
               onClick={footerButton.onClick}
-              className={`text-sm w-full p-2 rounded-md transition-colors ${
+              className={`text-sm w-full p-2 rounded-md transition-colors cursor-pointer ${
                 variantClasses[footerButton.variant || "default"]
               }`}
             >
