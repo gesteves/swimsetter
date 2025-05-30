@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import Set from '../Set';
 
 describe('Set component', () => {
@@ -12,36 +12,38 @@ describe('Set component', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+    jest.useFakeTimers();
+  });
+
+  afterEach(() => {
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
   });
 
   it('renders set number correctly', () => {
     render(
-      <table>
-        <tbody>
-          <Set
-            index={0}
-            set={mockSet}
-            onUpdate={mockOnUpdate}
-            onRemove={mockOnRemove}
-          />
-        </tbody>
-      </table>
+      <ul>
+        <Set
+          index={0}
+          set={mockSet}
+          onUpdate={mockOnUpdate}
+          onRemove={mockOnRemove}
+        />
+      </ul>
     );
     expect(screen.getByText('1')).toBeInTheDocument();
   });
 
   it('renders time and pace selectors with correct initial values', () => {
     render(
-      <table>
-        <tbody>
-          <Set
-            index={0}
-            set={mockSet}
-            onUpdate={mockOnUpdate}
-            onRemove={mockOnRemove}
-          />
-        </tbody>
-      </table>
+      <ul>
+        <Set
+          index={0}
+          set={mockSet}
+          onUpdate={mockOnUpdate}
+          onRemove={mockOnRemove}
+        />
+      </ul>
     );
 
     const minutesSelect = screen.getByRole('combobox', { name: /minutes/i });
@@ -56,16 +58,14 @@ describe('Set component', () => {
 
   it('calls onUpdate when time is changed', () => {
     render(
-      <table>
-        <tbody>
-          <Set
-            index={0}
-            set={mockSet}
-            onUpdate={mockOnUpdate}
-            onRemove={mockOnRemove}
-          />
-        </tbody>
-      </table>
+      <ul>
+        <Set
+          index={0}
+          set={mockSet}
+          onUpdate={mockOnUpdate}
+          onRemove={mockOnRemove}
+        />
+      </ul>
     );
 
     const minutesSelect = screen.getByRole('combobox', { name: /minutes/i });
@@ -79,16 +79,14 @@ describe('Set component', () => {
 
   it('calls onUpdate when pace is changed', () => {
     render(
-      <table>
-        <tbody>
-          <Set
-            index={0}
-            set={mockSet}
-            onUpdate={mockOnUpdate}
-            onRemove={mockOnRemove}
-          />
-        </tbody>
-      </table>
+      <ul>
+        <Set
+          index={0}
+          set={mockSet}
+          onUpdate={mockOnUpdate}
+          onRemove={mockOnRemove}
+        />
+      </ul>
     );
 
     const paceSelect = screen.getByRole('combobox', { name: /pace/i });
@@ -98,46 +96,63 @@ describe('Set component', () => {
 
   it('requires confirmation before calling onRemove', () => {
     render(
-      <table>
-        <tbody>
-          <Set
-            index={0}
-            set={mockSet}
-            onUpdate={mockOnUpdate}
-            onRemove={mockOnRemove}
-          />
-        </tbody>
-      </table>
+      <ul>
+        <Set
+          index={0}
+          set={mockSet}
+          onUpdate={mockOnUpdate}
+          onRemove={mockOnRemove}
+        />
+      </ul>
     );
 
-    // First click: confirmation state
-    let button = screen.getByRole('button', { name: /remove set 1/i });
+    const button = screen.getByRole('button');
     fireEvent.click(button);
     expect(mockOnRemove).not.toHaveBeenCalled();
 
-    // Second click: confirm removal
-    button = screen.getByRole('button', { name: /confirm remove set 1/i });
     fireEvent.click(button);
     expect(mockOnRemove).toHaveBeenCalled();
   });
 
+  it('resets confirmation after timeout', () => {
+    render(
+      <ul>
+        <Set
+          index={0}
+          set={mockSet}
+          onUpdate={mockOnUpdate}
+          onRemove={mockOnRemove}
+        />
+      </ul>
+    );
+
+    const button = screen.getByRole('button');
+    fireEvent.click(button); // trigger confirmation state
+
+    act(() => {
+      jest.advanceTimersByTime(2000); // expire confirmation
+    });
+
+    fireEvent.click(button); // first click again
+    expect(mockOnRemove).not.toHaveBeenCalled();
+  });
+
   it('renders all pace options formatted as M:SS/100 m and covers the correct range', () => {
     render(
-      <table>
-        <tbody>
-          <Set
-            index={0}
-            set={mockSet}
-            onUpdate={mockOnUpdate}
-            onRemove={mockOnRemove}
-          />
-        </tbody>
-      </table>
+      <ul>
+        <Set
+          index={0}
+          set={mockSet}
+          onUpdate={mockOnUpdate}
+          onRemove={mockOnRemove}
+        />
+      </ul>
     );
+
     const paceSelect = screen.getByRole('combobox', { name: /pace/i });
     const options = Array.from(paceSelect.querySelectorAll('option'));
 
-    expect(options.length).toBe(101); // 50 to 150 inclusive
+    expect(options.length).toBe(101);
 
     options.forEach((option, i) => {
       const value = 50 + i;

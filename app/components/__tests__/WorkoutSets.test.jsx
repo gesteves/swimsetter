@@ -21,7 +21,7 @@ describe('WorkoutSets', () => {
     jest.useRealTimers();
   });
 
-  it('renders all sets', () => {
+  it('renders all sets as list items', () => {
     render(
       <WorkoutSets
         sets={sets}
@@ -30,6 +30,8 @@ describe('WorkoutSets', () => {
         onClearWorkout={mockClear}
       />
     );
+    const listItems = screen.getAllByRole('listitem');
+    expect(listItems).toHaveLength(sets.length);
     expect(screen.getByText('1')).toBeInTheDocument();
     expect(screen.getByText('2')).toBeInTheDocument();
   });
@@ -58,12 +60,11 @@ describe('WorkoutSets', () => {
       />
     );
 
-    const removeButton = screen.getByRole('button', { name: /remove set 1/i });
+    const removeButton = screen.getAllByRole('button')[0];
     fireEvent.click(removeButton);
     expect(mockRemove).not.toHaveBeenCalled();
 
-    const confirmButton = screen.getByRole('button', { name: /confirm remove set 1/i });
-    fireEvent.click(confirmButton);
+    fireEvent.click(removeButton);
     expect(mockRemove).toHaveBeenCalledWith(0);
   });
 

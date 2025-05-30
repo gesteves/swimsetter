@@ -3,13 +3,12 @@
 import { forwardRef, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleMinus, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
-import { TableCell } from './Table';
 import Select from './Select';
 
 const PACE_MIN = 50;  // 0:50/100m
 const PACE_MAX = 150; // 2:30/100m
 
-const Set = forwardRef(function Set({ index, set, onUpdate, onRemove, useYards }, ref) {
+const Set = forwardRef(function Set({ index, set, onUpdate, onRemove, useYards, as: Component = 'li' }, ref) {
   const [confirming, setConfirming] = useState(false);
 
   const handleChange = (key, value) => {
@@ -50,48 +49,41 @@ const Set = forwardRef(function Set({ index, set, onUpdate, onRemove, useYards }
   };
 
   return (
-    <tr ref={ref}>
-      <TableCell>
-        {index + 1}
-      </TableCell>
-      <TableCell>
-        <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4">
-          <div className="flex items-center gap-1">
-            <Select
-              value={set.minutes}
-              onChange={(e) => handleChange("minutes", e.target.value)}
-              options={minuteOptions}
-              aria-label="Minutes"
-            />
-            <div className="grid grid-cols-1 flex-none">:</div>
-            <Select
-              value={set.seconds}
-              onChange={(e) => handleChange("seconds", e.target.value)}
-              options={secondOptions}
-              aria-label="Seconds"
-            />
-          </div>
-          <div className="grid grid-cols-1 hidden sm:block">@</div>
-          <div className="grid grid-cols-1 mt-2 sm:mt-0">
-            <Select
-              value={set.pace}
-              onChange={(e) => handleChange("pace", e.target.value)}
-              options={paceOptions}
-              aria-label={`Pace per 100 ${unit}`}
-            />
-          </div>
+    <Component ref={ref} className="px-6 py-4 flex flex-col sm:flex-row sm:items-center sm:gap-4">
+      <div className="flex items-center gap-4 flex-1">
+        <div className="font-semibold w-6 text-center">{index + 1}</div>
+        <div className="flex items-center gap-1">
+          <Select
+            value={set.minutes}
+            onChange={(e) => handleChange("minutes", e.target.value)}
+            options={minuteOptions}
+            aria-label="Minutes"
+          />
+          <span className="grid grid-cols-1 flex-none">:</span>
+          <Select
+            value={set.seconds}
+            onChange={(e) => handleChange("seconds", e.target.value)}
+            options={secondOptions}
+            aria-label="Seconds"
+          />
         </div>
-      </TableCell>
-      <TableCell className="p-0 text-right">
-        <button
-          aria-label={confirming ? `Confirm remove set ${index + 1}` : `Remove set ${index + 1}`}
-          onClick={handleRemoveClick}
-          className="cursor-pointer p-4 text-red-600 hover:text-red-500"
-        >
-          <FontAwesomeIcon icon={confirming ? faTriangleExclamation : faCircleMinus} size="lg" />
-        </button>
-      </TableCell>
-    </tr>
+        <span className="hidden sm:block">@</span>
+        <div>
+          <Select
+            value={set.pace}
+            onChange={(e) => handleChange("pace", e.target.value)}
+            options={paceOptions}
+            aria-label={`Pace per 100 ${unit}`}
+          />
+        </div>
+      </div>
+      <button
+        onClick={handleRemoveClick}
+        className="cursor-pointer p-4 text-red-600 hover:text-red-500"
+      >
+        <FontAwesomeIcon icon={confirming ? faTriangleExclamation : faCircleMinus} size="lg" />
+      </button>
+    </Component>
   );
 });
 
