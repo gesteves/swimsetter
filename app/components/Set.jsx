@@ -84,6 +84,7 @@ const Set = forwardRef(function Set({ index, set, onUpdate, onRemove, useYards, 
         <button
           onClick={handleRemoveClick}
           className="cursor-pointer p-4 text-red-600 hover:text-red-500"
+          aria-label={confirming ? `Are you sure you want to remove set ${index + 1}?` : `Remove set ${index + 1}`}
         >
           <FontAwesomeIcon icon={confirming ? faTriangleExclamation : faCircleMinus} size="md" />
         </button>
