@@ -18,7 +18,7 @@ export default function WorkoutStats({ stats, onCopy, useYards }) {
     <Card
       footer={
         <button
-          className="text-sm transition-colors text-blue-600 hover:text-blue-500"
+          className="text-sm transition-colors text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300"
           onClick={handleCopy}
         >
           <FontAwesomeIcon icon={copied ? faClipboardCheck : faClipboard} className="mr-1" />

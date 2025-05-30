@@ -1,6 +1,6 @@
 export function Table({ children, className = "" }) {
   return (
-    <table className={`min-w-full divide-y divide-gray-300 ${className}`}>
+    <table className={`min-w-full divide-y divide-gray-300 dark:divide-gray-600 ${className}`}>
       {children}
     </table>
   );
@@ -18,7 +18,7 @@ export function TableHeader({ children, className = "" }) {
 
 export function TableHeaderCell({ children, className = "" }) {
   return (
-    <th className={`px-3 py-3.5 text-left text-sm font-semibold text-gray-900 ${className}`}>
+    <th className={`px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-100 ${className}`}>
       {children}
     </th>
   );
@@ -26,7 +26,7 @@ export function TableHeaderCell({ children, className = "" }) {
 
 export function TableBody({ children, className = "" }) {
   return (
-    <tbody className={`divide-y divide-gray-200 ${className}`}>
+    <tbody className={`divide-y divide-gray-200 dark:divide-gray-700 ${className}`}>
       {children}
     </tbody>
   );
@@ -34,7 +34,7 @@ export function TableBody({ children, className = "" }) {
 
 export function TableCell({ children, className = "" }) {
   return (
-    <td className={`py-4 px-3 text-sm text-gray-900 ${className}`}>
+    <td className={`py-4 px-3 text-sm text-gray-900 dark:text-gray-100 ${className}`}>
       {children}
     </td>
   );

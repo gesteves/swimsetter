@@ -3,7 +3,7 @@ import Card from './Card';
 export default function Intro() {
   return (
     <Card>
-      <ul className="text-gray-700 text-base space-y-3 list-disc list-inside">
+      <ul className="text-gray-700 dark:text-gray-200 text-base space-y-3 list-disc list-inside">
         <li><strong>Set the pace</strong> on your Endless Pool (or other swim spa).</li>
         <li><strong>Put your phone in a waterproof case</strong> and leave it on the side of the pool.</li>
         <li><strong>Start a timer or stopwatch</strong> on your watch.</li>
