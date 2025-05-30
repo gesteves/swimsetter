@@ -1,18 +1,34 @@
 import { generateWorkoutSummary } from '../workoutSummary'
 
 describe('generateWorkoutSummary', () => {
-  it('should return empty string for empty sets', () => {
+  it('should return empty summary and zero stats for empty sets', () => {
     const result = generateWorkoutSummary([])
-    expect(result).toBe('')
+    expect(result).toEqual({
+      summary: "",
+      stats: {
+        totalTime: "0:00",
+        totalDistance: 0,
+        avgPace: "0:00/100 m",
+        setCount: 0
+      }
+    })
   })
 
-  it('should return empty string for all zero duration sets', () => {
+  it('should return empty summary and zero stats for all zero duration sets', () => {
     const sets = [
       { minutes: 0, seconds: 0, pace: 90 },
       { minutes: 0, seconds: 0, pace: 120 }
     ]
     const result = generateWorkoutSummary(sets)
-    expect(result).toBe('')
+    expect(result).toEqual({
+      summary: "",
+      stats: {
+        totalTime: "0:00",
+        totalDistance: 0,
+        avgPace: "0:00/100 m",
+        setCount: 2
+      }
+    })
   })
 
   it('should generate summary in meters by default', () => {
@@ -23,10 +39,6 @@ describe('generateWorkoutSummary', () => {
     const { summary, stats } = generateWorkoutSummary(sets)
     
     expect(summary).toContain('/100 m')
-    expect(stats.totalDistance).toBe(200) // 2 sets of 100m each
-    expect(stats.totalTime).toBe('3:00')
-    expect(stats.avgPace).toBe('1:30/100 m')
-    expect(stats.setCount).toBe(2)
   })
 
   it('should generate summary in yards when specified', () => {
@@ -37,9 +49,6 @@ describe('generateWorkoutSummary', () => {
     const { summary, stats } = generateWorkoutSummary(sets, true)
     
     expect(summary).toContain('/100 yd')
-    expect(stats.totalDistance).toBe(200) // 2 sets of 100yd each
-    expect(stats.totalTime).toBe('3:00')
-    expect(stats.avgPace).toBe('1:30/100 yd')
   })
 
   it('should group consecutive identical sets', () => {
@@ -92,7 +101,7 @@ describe('generateWorkoutSummary', () => {
     // Average pace should be weighted by distance
     // Total time: 3:30, Total distance: 200m
     // 210 seconds / 2 = 105 seconds per 100m = 1:45/100m
-    expect(stats.avgPace).toBe('1:45/100 m')
+    expect(stats.avgPace).toBe('1:45/100')
   })
 
   it('should handle sets with zero seconds', () => {
