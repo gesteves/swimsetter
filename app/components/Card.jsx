@@ -17,7 +17,7 @@ export default function Card({ children, footer, footerButton, className = "" })
           ) : (
             <button
               onClick={footerButton.onClick}
-              className={`text-sm transition-colors ${
+              className={`text-sm w-full py-2 transition-colors ${
                 variantClasses[footerButton.variant || "default"]
               }`}
             >
