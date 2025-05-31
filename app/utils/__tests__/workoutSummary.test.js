@@ -88,7 +88,7 @@ describe('generateWorkoutSummary', () => {
     expect(summary).toContain('0:45 @ 1:30/100 m')
     expect(summary).toContain('1:30 @ 1:30/100 m')
     expect(summary).toContain('65:00 @ 1:30/100 m')
-    expect(summary).toContain('1:07:15 total') // Total time: 1h 7m 15s
+    expect(summary).toContain('Time: 1:07:15') // Total time: 1h 7m 15s
   })
 
   it('should calculate average pace correctly', () => {
