@@ -4,7 +4,7 @@ import "./globals.css";
 
 export const metadata = {
   title: "SwimSetter · Given to Tri",
-  description: "Track your Endless Pool swim workouts by time and pace.",
+  description: "A workout tracker for Endless Pools and swim spas. Record swimming pace and duration of your sets, and track your total workout time and distance.",
 };
 
 export const viewport = {
