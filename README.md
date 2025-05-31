@@ -2,6 +2,8 @@ This is a very simple [Next.js](https://nextjs.org) web app to track my swim set
 
 See it live at https://swimsetter.giventotri.com/
 
+![Simulator Screenshot - iPhone 16 Pro - 2025-05-30 at 22 00 01](https://github.com/user-attachments/assets/e749725f-ba0f-4c52-bd1b-0e45a90f056b)
+
 ## How to use it
 
 * Set the pace on your Endless Pool (or other swim spa).
