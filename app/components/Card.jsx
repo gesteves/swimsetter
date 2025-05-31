@@ -16,7 +16,7 @@ export default function Card({
   const isList = as === "ol" || as === "ul";
 
   return (
-    <div className={`divide-y divide-gray-200 overflow-hidden rounded-lg bg-white dark:bg-gray-800 shadow-sm ${className}`}>
+    <div className={`divide-y divide-gray-200 dark:divide-gray-700 overflow-hidden rounded-lg bg-white dark:bg-gray-800 shadow-sm ${className}`}>
       <Container
         {...(isList ? { role: "list", className: "divide-y divide-gray-200 dark:divide-gray-700" } : {})}
         {...(!isList ? { className: "p-4 sm:p-6" } : {})}

@@ -11,8 +11,6 @@ export default function WorkoutSets({ sets, onUpdateSet, onRemoveSet, onClearWor
   return (
     <Card
       as="ol"
-      className="overflow-hidden rounded-md bg-white shadow-sm"
-      listClassName="divide-y divide-gray-200"
       footerButton={{
         label: confirmClear ? "Are you sure?" : "Delete all sets",
         onClick: () => {
