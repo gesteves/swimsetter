@@ -231,6 +231,8 @@ describe('Set component', () => {
       { value: 'BR', label: 'Breaststroke' },
       { value: 'BK', label: 'Backstroke' },
       { value: 'FL', label: 'Butterfly' },
+      { value: 'K', label: 'Kick' },
+      { value: 'DR', label: 'Drill' },
     ];
 
     expect(options.length).toBe(expectedOptions.length);

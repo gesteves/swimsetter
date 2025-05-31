@@ -13,6 +13,8 @@ const STROKE_OPTIONS = [
   { value: 'BR', label: 'Breaststroke' },
   { value: 'BK', label: 'Backstroke' },
   { value: 'FL', label: 'Butterfly' },
+  { value: 'K', label: 'Kick' },
+  { value: 'DR', label: 'Drill' },
 ];
 
 const Set = forwardRef(function Set({ index, set, onUpdate, onRemove, useYards, as: Component = 'li' }, ref) {
