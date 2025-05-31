@@ -34,14 +34,15 @@ export const generateWorkoutSummary = (sets, useYards = false) => {
   validSets.forEach((set, index) => {
     const duration = `${set.minutes}:${String(set.seconds).padStart(2, "0")}`;
     const pace = `${Math.floor(set.pace / 60)}:${String(set.pace % 60).padStart(2, "0")}/100 ${unit}`;
-    const label = `${duration} @ ${pace}`;
+    const stroke = set.stroke || 'FR';
+    const label = `${duration} ${stroke} @ ${pace}`;
 
     if (currentGroup === label) {
       currentCount++;
     } else {
       // If we had a previous group, add it to lines
       if (currentGroup !== null) {
-        lines.push(currentCount > 1 ? `${currentCount}×${currentGroup}` : currentGroup);
+        lines.push(`${currentCount}×${currentGroup}`);
       }
       // Start new group
       currentGroup = label;
@@ -50,12 +51,12 @@ export const generateWorkoutSummary = (sets, useYards = false) => {
 
     // If this is the last set, add the current group
     if (index === validSets.length - 1) {
-      lines.push(currentCount > 1 ? `${currentCount}×${currentGroup}` : currentGroup);
+      lines.push(`${currentCount}×${currentGroup}`);
     }
   });
 
   // Add summary lines
-  lines.push("---");
+  lines.push("");
   
   const formatTime = (totalSeconds) => {
     const hours = Math.floor(totalSeconds / 3600);
