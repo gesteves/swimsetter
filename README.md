@@ -2,7 +2,7 @@ This is a very simple [Next.js](https://nextjs.org) web app to track my swim set
 
 See it live at https://swimsetter.giventotri.com/
 
-![Simulator Screenshot - iPhone 16 Pro - 2025-05-30 at 22 00 01](https://github.com/user-attachments/assets/e749725f-ba0f-4c52-bd1b-0e45a90f056b)
+![Simulator Screenshot - iPhone 16 Pro - 2025-05-31 at 07 43 19](https://github.com/user-attachments/assets/da273676-8c74-461c-9137-11018197ac4d)
 
 ## How to use it
 
