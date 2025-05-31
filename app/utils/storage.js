@@ -4,7 +4,7 @@ const STORAGE_KEYS = {
   USE_YARDS: "swimUseYards"
 };
 
-const DEFAULT_SET = { minutes: 1, seconds: 0, pace: 68 };
+const DEFAULT_SET = { minutes: 1, seconds: 0, pace: 68, stroke: 'FR' };
 
 export const loadSets = () => {
   if (typeof window === "undefined") return [];
