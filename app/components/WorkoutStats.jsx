@@ -25,7 +25,7 @@ export default function WorkoutStats({ stats, onCopy, useYards }) {
       <div className="flex flex-row justify-between items-stretch gap-1 sm:gap-2">
         <Stat
           icon={faClock}
-          label="Total Time"
+          label="Time"
           value={stats.totalTime}
         />
         <Stat
@@ -35,7 +35,7 @@ export default function WorkoutStats({ stats, onCopy, useYards }) {
         />
         <Stat
           icon={faStopwatch}
-          label="Average Pace"
+          label="Pace"
           value={stats.totalDistance > 0 ? `${stats.avgPace} ${unit}` : "—"}
         />
       </div>
