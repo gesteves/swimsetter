@@ -8,11 +8,22 @@ import Select from './Select';
 const PACE_MIN = 50;  // 0:50/100m
 const PACE_MAX = 150; // 2:30/100m
 
+const STROKE_OPTIONS = [
+  { value: 'FR', label: 'Freestyle' },
+  { value: 'BR', label: 'Breaststroke' },
+  { value: 'BK', label: 'Backstroke' },
+  { value: 'FL', label: 'Butterfly' },
+];
+
 const Set = forwardRef(function Set({ index, set, onUpdate, onRemove, useYards, as: Component = 'li' }, ref) {
   const [confirming, setConfirming] = useState(false);
 
   const handleChange = (key, value) => {
-    onUpdate({ ...set, [key]: parseInt(value, 10) });
+    if (key === 'stroke') {
+      onUpdate({ ...set, [key]: value });
+    } else {
+      onUpdate({ ...set, [key]: parseInt(value, 10) });
+    }
   };
 
   const unit = useYards ? 'yd' : 'm';
@@ -70,6 +81,19 @@ const Set = forwardRef(function Set({ index, set, onUpdate, onRemove, useYards, 
                 aria-label="Seconds"
               />
             </div>
+          </div>
+          <div className="flex flex-col flex-1">
+            <Select
+              id={`stroke-${index}`}
+              value={set.stroke || 'FR'}
+              onChange={(e) => handleChange("stroke", e.target.value)}
+              options={STROKE_OPTIONS.map(opt => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
+              aria-label="Stroke"
+            />
           </div>
           <div className="flex flex-col flex-1">
             <Select
