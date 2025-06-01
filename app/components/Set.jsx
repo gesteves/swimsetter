@@ -75,7 +75,7 @@ const Set = forwardRef(function Set({ index, set, onUpdate, onRemove, useYards, 
                 options={minuteOptions}
                 aria-label="Minutes"
               />
-              <span className="grid grid-cols-1 flex-none">:</span>
+              <span className="grid grid-cols-1 flex-none text-gray-700 dark:text-gray-200">:</span>
               <Select
                 value={set.seconds}
                 onChange={(e) => handleChange("seconds", e.target.value)}
