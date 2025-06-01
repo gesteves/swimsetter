@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import Card from '../Card';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faTrash } from '@fortawesome/pro-solid-svg-icons';
 
 describe('Card', () => {
   it('renders children wrapped in padded div when list is not used', () => {

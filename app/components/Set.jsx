@@ -2,7 +2,7 @@
 
 import { forwardRef, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleMinus, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { faCircleMinus, faTriangleExclamation } from '@fortawesome/pro-solid-svg-icons';
 import Select from './Select';
 
 const PACE_MIN = 50;  // 0:50/100m

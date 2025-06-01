@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
+import { faCirclePlus } from '@fortawesome/pro-solid-svg-icons';
 import { forwardRef } from 'react';
 
 const ButtonBar = forwardRef(function ButtonBar({ onAddSet }, ref) {

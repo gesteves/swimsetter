@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from 'react';
-import { faTrash, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faTriangleExclamation } from '@fortawesome/pro-solid-svg-icons';
 import Set from './Set';
 import Card from './Card';
 
