@@ -16,7 +16,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body>
-        {children}
+        <main className="min-h-[100dvh] p-4 text-lg flex justify-center bg-blue-50 dark:bg-gray-900 pb-[var(--bottom-padding)]">
+          <div className="w-full max-w-2xl space-y-3">
+           {children}
+          </div>
+        </main>
       </body>
     </html>
   );

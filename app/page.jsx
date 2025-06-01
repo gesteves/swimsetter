@@ -71,29 +71,27 @@ export default function Home() {
   const workoutData = generateWorkoutSummary(sets, useYards);
 
   return (
-    <main className="min-h-[100dvh] p-4 text-lg flex justify-center bg-blue-50 dark:bg-gray-900 pb-[var(--bottom-padding)]">
-      <div className="w-full max-w-2xl space-y-3">
-        <Preferences useYards={useYards} setUseYards={setUseYards} />
-        {sets.length === 0 && <Intro />}
-        {sets.length > 0 && (
-          <>
-            <WorkoutSets
-              sets={sets}
-              onUpdateSet={updateSet}
-              onRemoveSet={removeSet}
-              onClearWorkout={clearWorkout}
-              lastSetRef={lastSetRef}
-              useYards={useYards}
-            />
-            <WorkoutStats 
-              stats={workoutData.stats} 
-              onCopy={() => navigator.clipboard.writeText(workoutData.summary)} 
-              useYards={useYards}
-            />
-          </>
-        )}
-        <ButtonBar ref={buttonCardRef} onAddSet={addSet} />
-      </div>
-    </main>
+    <>
+      <Preferences useYards={useYards} setUseYards={setUseYards} />
+      {sets.length === 0 && <Intro />}
+      {sets.length > 0 && (
+        <>
+          <WorkoutSets
+            sets={sets}
+            onUpdateSet={updateSet}
+            onRemoveSet={removeSet}
+            onClearWorkout={clearWorkout}
+            lastSetRef={lastSetRef}
+            useYards={useYards}
+          />
+          <WorkoutStats 
+            stats={workoutData.stats} 
+            onCopy={() => navigator.clipboard.writeText(workoutData.summary)} 
+            useYards={useYards}
+          />
+        </>
+      )}
+      <ButtonBar ref={buttonCardRef} onAddSet={addSet} />
+    </>
   );
 }
