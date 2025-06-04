@@ -30,12 +30,16 @@ export default function Card({
             footer
           ) : (
             <button
+              type="button"
               onClick={footerButton.onClick}
               className={`text-sm w-full p-2 rounded-md transition-colors cursor-pointer ${
                 variantClasses[footerButton.variant || "default"]
               }`}
+              aria-label={footerButton.label}
             >
-              {footerButton.icon && <FontAwesomeIcon icon={footerButton.icon} className="mr-1" />}
+              {footerButton.icon && (
+                <FontAwesomeIcon icon={footerButton.icon} className="mr-1" aria-hidden="true" />
+              )}
               {footerButton.label}
             </button>
           )}

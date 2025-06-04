@@ -108,11 +108,20 @@ const Set = forwardRef(function Set({ index, set, onUpdate, onRemove, useYards, 
           </div>
         </div>
         <button
+          type="button"
           onClick={handleRemoveClick}
           className="cursor-pointer p-4 text-red-600 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900 rounded-md transition-colors self-center"
-          aria-label={confirming ? `Are you sure you want to remove set ${index + 1}?` : `Remove set ${index + 1}`}
+          aria-label={
+            confirming
+              ? `Are you sure you want to remove set ${index + 1}?`
+              : `Remove set ${index + 1}`
+          }
         >
-          <FontAwesomeIcon icon={confirming ? faTriangleExclamation : faCircleMinus} size="md" />
+          <FontAwesomeIcon
+            icon={confirming ? faTriangleExclamation : faCircleMinus}
+            size="md"
+            aria-hidden="true"
+          />
         </button>
       </div>
     </Component>
