@@ -24,7 +24,7 @@
     "next": "15.5.4",
     "react": "^19.1.1",
     "react-dom": "^19.2.0",
-    "tldts": "^7.0.14"
+    "tldts": "^7.0.17"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.13",
