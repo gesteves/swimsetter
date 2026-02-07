@@ -20,7 +20,7 @@
     "@fortawesome/pro-solid-svg-icons": "^6.7.2",
     "@fortawesome/pro-thin-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
-    "geist": "^1.5.1",
+    "geist": "^1.7.0",
     "next": "16.1.4",
     "react": "^19.1.1",
     "react-dom": "^19.2.3",
