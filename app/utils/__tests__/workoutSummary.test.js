@@ -36,8 +36,8 @@ describe('generateWorkoutSummary', () => {
       { minutes: 1, seconds: 30, pace: 90, stroke: 'FR' },
       { minutes: 1, seconds: 30, pace: 90, stroke: 'FR' }
     ]
-    const { summary, stats } = generateWorkoutSummary(sets)
-    
+    const { summary } = generateWorkoutSummary(sets)
+
     expect(summary).toContain('/100 m')
   })
 
@@ -46,8 +46,8 @@ describe('generateWorkoutSummary', () => {
       { minutes: 1, seconds: 30, pace: 90, stroke: 'FR' },
       { minutes: 1, seconds: 30, pace: 90, stroke: 'FR' }
     ]
-    const { summary, stats } = generateWorkoutSummary(sets, true)
-    
+    const { summary } = generateWorkoutSummary(sets, true)
+
     expect(summary).toContain('/100 yd')
   })
 
@@ -107,8 +107,8 @@ describe('generateWorkoutSummary', () => {
       { minutes: 1, seconds: 30, pace: 90, stroke: 'FR' },  // 1:30/100m
       { minutes: 2, seconds: 0, pace: 120, stroke: 'BR' }   // 2:00/100m
     ]
-    const { summary, stats } = generateWorkoutSummary(sets)
-    
+    const { stats } = generateWorkoutSummary(sets)
+
     // Average pace should be weighted by distance
     // Total time: 3:30, Total distance: 200m
     // 210 seconds / 2 = 105 seconds per 100m = 1:45/100m

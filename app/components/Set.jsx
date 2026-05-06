@@ -1,9 +1,10 @@
 "use client"
 
-import { forwardRef, useState } from "react";
+import { forwardRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleMinus, faTriangleExclamation } from '@fortawesome/pro-solid-svg-icons';
 import Select from './Select';
+import { useConfirmation } from '../utils/useConfirmation';
 
 const PACE_MIN = 50;  // 0:50/100m
 const PACE_MAX = 150; // 2:30/100m
@@ -18,7 +19,7 @@ const STROKE_OPTIONS = [
 ];
 
 const Set = forwardRef(function Set({ index, set, onUpdate, onRemove, useYards, as: Component = 'li' }, ref) {
-  const [confirming, setConfirming] = useState(false);
+  const { confirming, arm, reset } = useConfirmation();
 
   const handleChange = (key, value) => {
     if (key === 'stroke') {
@@ -54,10 +55,10 @@ const Set = forwardRef(function Set({ index, set, onUpdate, onRemove, useYards, 
 
   const handleRemoveClick = () => {
     if (confirming) {
+      reset();
       onRemove();
     } else {
-      setConfirming(true);
-      setTimeout(() => setConfirming(false), 2000);
+      arm();
     }
   };
 

@@ -1,17 +1,15 @@
 import Card from './Card';
 import Stat from './Stat';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClipboard, faClipboardCheck, faClock, faRuler, faStopwatch } from '@fortawesome/pro-solid-svg-icons';
-import { useState } from 'react';
+import { useConfirmation } from '../utils/useConfirmation';
 
 export default function WorkoutStats({ stats, onCopy, useYards }) {
-  const [copied, setCopied] = useState(false);
+  const { confirming: copied, arm } = useConfirmation();
   const unit = useYards ? 'yd' : 'm';
 
   const handleCopy = () => {
     onCopy();
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    arm();
   };
 
   return (

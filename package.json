@@ -5,20 +5,16 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "build:with_tests": "npm test && next build",
+    "build:with_tests": "npm test && npm run lint && next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
-    "@fortawesome/pro-duotone-svg-icons": "^6.7.2",
-    "@fortawesome/pro-light-svg-icons": "^6.7.2",
-    "@fortawesome/pro-regular-svg-icons": "^6.7.2",
     "@fortawesome/pro-solid-svg-icons": "^6.7.2",
-    "@fortawesome/pro-thin-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "geist": "^1.7.0",
     "next": "16.2.4",
@@ -27,12 +23,15 @@
     "tldts": "^7.0.29"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
     "@tailwindcss/postcss": "^4.2.4",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
     "autoprefixer": "^10.5.0",
     "dotenv": "^17.4.2",
+    "eslint": "^9.39.0",
+    "eslint-config-next": "16.2.4",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^30.3.0",
     "jest-environment-jsdom": "^30.3.0",
