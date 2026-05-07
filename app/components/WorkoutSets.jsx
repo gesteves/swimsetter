@@ -1,12 +1,12 @@
 "use client"
 
-import { useState } from 'react';
 import { faTrash, faTriangleExclamation } from '@fortawesome/pro-solid-svg-icons';
 import Set from './Set';
 import Card from './Card';
+import { useConfirmation } from '../utils/useConfirmation';
 
 export default function WorkoutSets({ sets, onUpdateSet, onRemoveSet, onClearWorkout, lastSetRef, useYards }) {
-  const [confirmClear, setConfirmClear] = useState(false);
+  const { confirming: confirmClear, arm, reset } = useConfirmation();
 
   return (
     <Card
@@ -14,10 +14,11 @@ export default function WorkoutSets({ sets, onUpdateSet, onRemoveSet, onClearWor
       footerButton={{
         label: confirmClear ? "Are you sure?" : "Delete all sets",
         onClick: () => {
-          if (confirmClear) onClearWorkout();
-          else {
-            setConfirmClear(true);
-            setTimeout(() => setConfirmClear(false), 2000);
+          if (confirmClear) {
+            reset();
+            onClearWorkout();
+          } else {
+            arm();
           }
         },
         icon: confirmClear ? faTriangleExclamation : faTrash,

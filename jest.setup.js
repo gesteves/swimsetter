@@ -52,4 +52,10 @@ Object.defineProperty(navigator, 'clipboard', {
     writeText: jest.fn().mockResolvedValue(undefined),
   },
   writable: true,
-}) 
+})
+
+// jsdom does not implement scrollIntoView
+if (!Element.prototype.scrollIntoView) {
+  Element.prototype.scrollIntoView = jest.fn()
+}
+

@@ -1,5 +1,6 @@
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
+import Analytics from "./components/Analytics";
 import "./globals.css";
 
 export const metadata = {
@@ -21,6 +22,7 @@ export default function RootLayout({ children }) {
            {children}
           </div>
         </main>
+        <Analytics />
       </body>
     </html>
   );

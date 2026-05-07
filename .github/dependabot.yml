@@ -1,5 +1,6 @@
 version: 2
 updates:
+  # npm dependencies
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
@@ -11,6 +12,7 @@ updates:
     commit-message:
       prefix: "chore"
       include: "scope"
+    # Group minor and patch updates together
     groups:
       production-dependencies:
         dependency-type: "production"
@@ -22,3 +24,16 @@ updates:
         update-types:
           - "minor"
           - "patch"
+
+  # GitHub Actions (if any workflows exist)
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "saturday"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "chore"
+      include: "scope"

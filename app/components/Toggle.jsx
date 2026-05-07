@@ -1,7 +1,6 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
-export default function Toggle({ label, description, onChange, checked = false }) {  
+export default function Toggle({ label, description, onChange, checked = false }) {
   const labelId = `${label.toLowerCase().replace(/\s+/g, '-')}-label`
 
   return (
@@ -37,9 +36,3 @@ export default function Toggle({ label, description, onChange, checked = false }
   )
 }
 
-Toggle.propTypes = {
-  label: PropTypes.string.isRequired,
-  description: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
-  checked: PropTypes.bool
-} 

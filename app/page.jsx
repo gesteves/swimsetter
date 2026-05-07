@@ -48,19 +48,17 @@ export default function Home() {
   }, [sets.length]);
 
   const updateSet = (index, updatedSet) => {
-    const newSets = [...sets];
-    newSets[index] = updatedSet;
-    setSets(newSets);
+    setSets((prev) => prev.map((s, i) => (i === index ? updatedSet : s)));
   };
 
   const addSet = () => {
     const lastSet = loadLastSet();
     shouldScrollRef.current = true;
-    setSets([...sets, lastSet]);
+    setSets((prev) => [...prev, lastSet]);
   };
 
   const removeSet = (index) => {
-    setSets(sets.filter((_, i) => i !== index));
+    setSets((prev) => prev.filter((_, i) => i !== index));
   };
 
   const clearWorkout = () => {
