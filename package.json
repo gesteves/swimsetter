@@ -35,7 +35,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^30.4.2",
     "jest-environment-jsdom": "^30.4.1",
-    "postcss": "^8.5.14",
+    "postcss": "^8.5.15",
     "tailwindcss": "^4.1.18"
   }
 }
