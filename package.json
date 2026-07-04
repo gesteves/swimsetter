@@ -24,18 +24,18 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
-    "@tailwindcss/postcss": "^4.3.1",
+    "@tailwindcss/postcss": "^4.3.2",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
-    "autoprefixer": "^10.5.0",
+    "autoprefixer": "^10.5.2",
     "dotenv": "^17.4.2",
     "eslint": "^9.39.0",
-    "eslint-config-next": "16.2.9",
+    "eslint-config-next": "16.2.10",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^30.4.2",
     "jest-environment-jsdom": "^30.4.1",
-    "postcss": "^8.5.15",
+    "postcss": "^8.5.16",
     "tailwindcss": "^4.1.18"
   }
 }
