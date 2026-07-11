@@ -1,8 +1,9 @@
 "use client";
 
-import { isProduction, getSiteDomain } from "../utils/env";
+import { isProduction, isAnalyticsEnabled, getSiteDomain } from "../utils/env";
 
 export default function Analytics() {
+  if (!isAnalyticsEnabled()) return null;
   if (!isProduction()) return null;
 
   const siteDomain = getSiteDomain();

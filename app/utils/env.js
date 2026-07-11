@@ -24,6 +24,10 @@ export function getRootUrl() {
   }
 }
 
+export function isAnalyticsEnabled() {
+  return Boolean(process.env.ANALYTICS_ENABLED);
+}
+
 export function getSiteDomain() {
   const rootUrl = getRootUrl();
   if (rootUrl === 'http://localhost:3000') return 'localhost';
