@@ -30,7 +30,7 @@
     "@testing-library/user-event": "^14.6.1",
     "autoprefixer": "^10.5.2",
     "dotenv": "^17.4.2",
-    "eslint": "^9.39.0",
+    "eslint": "^10.7.0",
     "eslint-config-next": "16.2.10",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^30.4.2",
