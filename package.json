@@ -16,11 +16,11 @@
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/pro-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
-    "geist": "^1.7.2",
-    "next": "16.3.0",
-    "react": "^19.2.8",
-    "react-dom": "^19.2.8",
-    "tldts": "^7.4.10"
+    "geist": "^1.8.1",
+    "next": "16.4.2",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "tldts": "^7.4.19"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.6",
